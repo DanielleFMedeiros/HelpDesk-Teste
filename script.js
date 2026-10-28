@@ -1,3 +1,13 @@
+
+// Atalhos do cabeçalho
+function abrirLink() {
+  window.open("https://drive.google.com/drive/folders/1Zjxqrsom2LXvtrx62O2bYz87Md8k72va?usp=sharing", "_blank");
+}
+
+function abrirLink1() {
+  window.open("https://faq.tactelecom.com.br/bibliotecas/comercial/", "_blank");
+}
+
 //FORMATADOR DE CPF/CNPJ
 function formatadorDoc() {
     const docEntrada = document.getElementById("docInput").value;

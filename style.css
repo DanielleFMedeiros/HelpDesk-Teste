@@ -642,3 +642,25 @@ body.modo-escuro .flex-container > .container {
 .card-os button:hover, .card-atendimento button:hover { transform: none; }
 #textoGerado, #atendimento { margin-top: 8px; border: 1px solid var(--hd-line); border-radius: 6px; }
 body.modo-escuro .card-os .opcoes, body.modo-escuro .card-atendimento .opcoes { background: transparent; }
+
+
+/* Cabeçalho principal restaurado */
+.cabecalho-principal {
+  width: 100%;
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 16px;
+  box-shadow: none;
+}
+.cabecalho-principal .cabecalho-helpdesk { margin: 0; flex: 1 1 auto; }
+.atalhos-cabecalho { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.atalhos-cabecalho button { margin: 0; padding: 8px 12px; }
+@media (max-width: 650px) {
+  .cabecalho-principal { align-items: flex-start; }
+  .cabecalho-principal .cabecalho-helpdesk { width: 100%; }
+  .atalhos-cabecalho { width: 100%; }
+}
