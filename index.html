@@ -20,22 +20,30 @@
         <button class="" onclick="abrirLink()">DRIVE SUPORTE</button>
         <button class="" onclick="abrirLink1()">FAQ COMERCIAL</button>
       </div>
+      
       <div class="container">
-        <h2>Formatador de CPF</h2>
-        <label for="cpfInput">Cole o CPF (11 dígitos):</label>
-        <input type="text" id="cpfInput">
-        <button onclick="formatarCpf()">Formatar CPF</button>
-        <p id="cpfResultado"></p>
-        <button id="botaoCopiarCPF" onclick="copiarResultadoCPF()">Copiar CPF</button>
+          <h2>Formatador de CPF e CNPJ</h2>
+      
+          <label for="docInput">Cole o CPF/CNPJ:</label>
+          <input
+              type="text"
+              id="docInput"
+              placeholder="Digite ou cole o documento"
+          >
+      
+          <button onclick="formatadorDoc()">Formatar</button>
+      
+          <p id="docResultado"></p>
+      
+          <button
+              id="botaoCopiarDoc"
+              onclick="copiarResultado()"
+              style="display: none;"
+          >
+              Copiar
+          </button>
       </div>
-      <div class="container">
-        <h2>Formatador de CNPJ</h2>
-        <label for="cnpjInput">Cole o CNPJ (14 dígitos):</label>
-        <input type="text" id="cnpjInput">
-        <button onclick="formatarCnpj()">Formatar CNPJ</button>
-        <p id="cnpjResultado"></p>
-        <button id="botaoCopiarCNPJ" onclick="copiarResultadoCnpj()">Copiar CNPJ</button>
-      </div>
+
     </div> <!-- FECHA A PRIMEIRA containers-row -->
 
     <div class="containers-row">
