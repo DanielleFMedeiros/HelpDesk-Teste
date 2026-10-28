@@ -346,13 +346,9 @@ body.modo-escuro select {
 }
 
 body.modo-escuro button {
-
-
-
-  
     background-color: #4CAF50;
     color: #ffffff;
-    border-color: #666666;
+    border-color: #388E3C;
 }
 
 body.modo-escuro input::placeholder,
