@@ -664,3 +664,114 @@ body.modo-escuro .card-os .opcoes, body.modo-escuro .card-atendimento .opcoes { 
   .cabecalho-principal .cabecalho-helpdesk { width: 100%; }
   .atalhos-cabecalho { width: 100%; }
 }
+
+/* Formulários O.S. e Atendimento: layout enxuto, sem caixas decorativas */
+.card-os,
+.card-atendimento {
+  padding: 12px;
+  margin: 6px;
+  border: 1px solid var(--hd-line);
+  border-radius: 6px;
+  box-shadow: none;
+}
+.card-os h2,
+.card-atendimento h2 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.card-os > p,
+.card-atendimento > p {
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+.card-os form,
+.card-atendimento form { margin: 0; }
+.card-os form > div,
+.card-atendimento form > div { margin-top: 4px; }
+.card-os label,
+.card-atendimento label {
+  display: block;
+  margin: 4px 0 2px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.card-os input:not([type="checkbox"]):not([type="radio"]),
+.card-os select,
+.card-os textarea,
+.card-atendimento input:not([type="checkbox"]):not([type="radio"]),
+.card-atendimento select,
+.card-atendimento textarea {
+  width: 100%;
+  min-height: 30px;
+  margin: 2px 0 5px;
+  padding: 5px 7px;
+  font-size: 12px;
+  line-height: 1.3;
+  border: 1px solid #d5d9d6;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+.card-os textarea,
+.card-atendimento textarea { min-height: 54px; }
+.card-os .opcoes,
+.card-atendimento .opcoes {
+  margin: 4px 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.card-os .card,
+.card-atendimento .card {
+  margin: 4px 0;
+  padding: 5px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.card-os .grupo-radio,
+.card-atendimento .grupo-radio { margin: 2px 0; }
+.card-os .grupo-radio label,
+.card-atendimento .grupo-radio label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 3px 0;
+}
+.card-os input[type="checkbox"],
+.card-os input[type="radio"],
+.card-atendimento input[type="checkbox"],
+.card-atendimento input[type="radio"] { margin: 0 4px 0 0; }
+.card-os button,
+.card-atendimento button {
+  width: auto;
+  min-height: 30px;
+  margin: 3px 4px 3px 0;
+  padding: 6px 9px;
+  border-radius: 4px;
+  box-shadow: none;
+  transition: background-color .15s ease;
+}
+.card-os button:hover,
+.card-atendimento button:hover { transform: none; box-shadow: none; }
+.card-os #textoGerado,
+.card-atendimento #atendimento {
+  margin-top: 5px;
+  padding: 7px;
+  border: 1px solid var(--hd-line);
+  border-radius: 4px;
+}
+body.modo-escuro .card-os .opcoes,
+body.modo-escuro .card-atendimento .opcoes,
+body.modo-escuro .card-os .card,
+body.modo-escuro .card-atendimento .card { background: transparent; }
+body.modo-escuro .card-os input:not([type="checkbox"]):not([type="radio"]),
+body.modo-escuro .card-os select,
+body.modo-escuro .card-os textarea,
+body.modo-escuro .card-atendimento input:not([type="checkbox"]):not([type="radio"]),
+body.modo-escuro .card-atendimento select,
+body.modo-escuro .card-atendimento textarea { border-color: var(--hd-line); }
