@@ -346,9 +346,9 @@ body.modo-escuro select {
 }
 
 body.modo-escuro button {
-    background-color: #4CAF50;
+    background-color: #444444;
     color: #ffffff;
-    border-color: #388E3C;
+    border-color: #666666;
 }
 
 body.modo-escuro input::placeholder,
@@ -367,6 +367,9 @@ body.modo-escuro .botao-tema {
     border-color: #666666;
 }
 
+body.modo-escuro .botao-tema:hover {
+    background-color: #444444;
+}
 
 /* AJUSTE PARA CELULARES */
 @media (max-width: 480px) {
@@ -383,4 +386,3 @@ body.modo-escuro .botao-tema {
         font-size: 12px;
     }
 }
-
