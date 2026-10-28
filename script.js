@@ -33,7 +33,7 @@ function formatadorDoc() {
 }
 
 
-function copiarResultado() {
+function copiarDocumento() {
     const resultado = document.getElementById("docResultado").textContent;
 
     if (resultado) {
