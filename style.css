@@ -346,7 +346,11 @@ body.modo-escuro select {
 }
 
 body.modo-escuro button {
-    background-color: #444444;
+
+
+
+  
+    background-color: #4CAF50;
     color: #ffffff;
     border-color: #666666;
 }
