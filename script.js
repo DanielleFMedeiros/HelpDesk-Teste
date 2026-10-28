@@ -1,4 +1,4 @@
-
+//FORMATADOR DE CPF/CNPJ
 function formatadorDoc() {
     const docEntrada = document.getElementById("docInput").value;
     const docNumeros = docEntrada.replace(/\D/g, "");
@@ -32,6 +32,7 @@ function formatadorDoc() {
     }
 }
 
+//GOOGLE MAPS
 function copiarResultado() {
     const resultado = document.getElementById("docResultado").textContent;
 
@@ -39,6 +40,7 @@ function copiarResultado() {
         copiarParaAreaTransferencia(resultado);
     }
 }
+
 
 function abrirLink() {
   var link = "https://drive.google.com/drive/folders/1Zjxqrsom2LXvtrx62O2bYz87Md8k72va?usp=sharing";
