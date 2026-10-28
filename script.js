@@ -34,10 +34,10 @@ function formatadorDoc() {
 
 
 function copiarDocumento() {
-    const resultado = document.getElementById("docResultado").textContent;
+    const resultadoDoc = document.getElementById("docResultado").textContent;
 
-    if (resultado) {
-        copiarParaAreaTransferencia(resultado);
+    if (resultadoDoc) {
+        copiarParaAreaTransferencia(resultadoDoc);
     }
 }
 
