@@ -32,7 +32,7 @@ function formatadorDoc() {
     }
 }
 
-//GOOGLE MAPS
+
 function copiarResultado() {
     const resultado = document.getElementById("docResultado").textContent;
 
@@ -41,7 +41,7 @@ function copiarResultado() {
     }
 }
 
-
+//GOOGLE MAPS
 function abrirLink() {
   var link = "https://drive.google.com/drive/folders/1Zjxqrsom2LXvtrx62O2bYz87Md8k72va?usp=sharing";
   window.open(link, "_blank");
