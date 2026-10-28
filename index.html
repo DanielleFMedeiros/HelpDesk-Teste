@@ -1,1036 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HelpDesk</title>
+  <meta name="theme-color" content="#0b1719">
+  <title>TAC HelpDesk</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="favicon/site.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/tac-telecom.png">
 </head>
-
 <body>
-
-  <div class="flex-container">
-    <div class="containers-row">
-      <div class="container">
-          <div class="cabecalho-helpdesk">
-              <h1>TAC HelpDesk</h1>
-      
-              <button
-                  id="botaoTema"
-                  class="botao-tema"
-                  onclick="alternarTema()"
-                  aria-label="Alternar entre modo claro e escuro"
-              >
-                  🌙 Modo escuro
-              </button>
-          </div>
-  
-          <button onclick="abrirLink()">DRIVE SUPORTE</button>
-          <button onclick="abrirLink1()">FAQ COMERCIAL</button>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="TAC HelpDesk início">
+        <span class="brand-mark">T</span>
+        <span><strong>TAC</strong><small>HELPDESK</small></span>
+      </a>
+      <p class="sidebar-label">MENU PRINCIPAL</p>
+      <nav class="side-nav">
+        <a href="#inicio" class="nav-link active"><span>⌂</span> Visão geral</a>
+        <a href="#ferramentas" class="nav-link"><span>▦</span> Ferramentas rápidas</a>
+        <a href="#os" class="nav-link"><span>＋</span> Gerador de O.S.</a>
+        <a href="#atendimento"><span>▤</span> Gerador de atendimento</a>
+        <a href="#rede"><span>⌁</span> Rede e localização</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="status-dot"></span>
+        <span><strong>Central de suporte</strong><small>Ferramentas internas</small></span>
       </div>
-      
-<!--FORMATADOR DE CPF CNPJ-->
-      <div class="container">
-          <h2>Formatador de CPF e CNPJ</h2>
-      
-          <label for="docInput">Cole o CPF(11 dígitos) ou CNPJ(14 dígitos):</label>
-          <input
-              type="text"
-              id="docInput"
-              placeholder="Digite ou cole o CPF/CPNJ"
-          >
-      
-          <button onclick="formatadorDoc()">Formatar</button>
-      
-          <p id="docResultado"></p>
-      
-          <button
-              id="botaoCopiarDoc"
-              onclick="copiarDocumento()"
-              style="display: none;"
-          >
-              Copiar
-          </button>
-      </div>
-
-    </div> <!-- FECHA A PRIMEIRA containers-row -->
-
-    <div class="containers-row">
-      <div class="container">
-        <h2>Conversor m para M</h2>
-        <textarea id="inputTexto" placeholder="Digite seu texto"></textarea>
-        <button onclick="converterMaiusculas()">Converter para Maiúsculas</button>
-        <button onclick="converterMinusculas()">Converter para Minúsculas</button>
-        <p id="textoConvertido"></p>
-        <button id="botaoCopiarTexto" onclick="copiarTextoConversor()">Copiar Texto</button>
-
-      </div>
-
-      <div class="container">
-        <h2>Gerador de O.S</h2>
-        <form id="formulario">
-          <div>
-            <label for="problemaSelect">Selecione o problema:</label>
-            <select id="problemaSelect" name="problemaSelect">
-              <option value="">-- Selecione --</option>
-              <option value="semInternet">SEM INTERNET</option>
-              <option value="personalization">PERSONALIZAVEL</option>
-              <option value="internetLenta">INTERNET LENTA</option>
-              <option value="internetCaindo">INTERNET CAINDO</option>
-              <option value="sinalAlto">SINAL ALTO</option>
-              <option value="tvTac">TV TAC COM DEFEITO</option>
-              <option value="instalacao">INST. FIBRA - PEDIDO</option>
-              <option value="cabeamento">CABEAMENTO</option>
-            </select>
-          </div>
-
-          <!-- SEM INTERNET -->
-          <div id="opcoesSemInternet" class="opcoes hidden">
-
-            <div id="regiaoMk" class="opcoes hidden">
-              <label for="regiao">Adicione bairro, cidade</label>
-              <input type="text" id="regiao" name="regiao" placeholder="Ex: Centro, Jaguaruna">
-            </div>
-
-              <!-- MORA FIXO?-->
-            <div class="card">
-
-              <div class="grupo-radio">
-                <label>
-                  <input type="radio" name="morador" value="**MORA FIXO**">
-                  É morador fixo
-                </label>
-              </div>
-
-              <div class="grupo-radio">
-                <label>
-                  <input type="radio" name="morador" value="**NÃO MORA FIXO**">
-                  Não é morador fixo
-                </label>
-              </div>
-
-              <div class="grupo-radio">
-                <label>
-                  <input type="radio" name="morador" value="**EMPRESA**">
-                  É uma empresa
-                </label>
-              </div>
-
-              <div class="grupo-radio">
-                <label>
-                  <input type="radio" name="morador" value="**COMÉRCIO**">
-                  É um comércio
-                </label>
-              </div>
-
-            </div>
-
-           <!-- HORARIO -->
-
-            <div id="horarioMk" class="opcoes hidden">
-              <label for="horario">Restrição de horário:</label>
-              <input type="text" id="horario" name="horario"
-                placeholder="Ex: (terça 09/06 período da tarde e quarta 10/06 até 12h)">
-            </div>
-
-            <div id="solicitanteMk" class="opcoes hidden">
-              <label for="solicitante">Tratado com:</label>
-              <input type="text" id="solicitante" name="solicitante" placeholder="Nome de quem solicitou a o.s">
-            </div>
-
-            <!-- informações que devem constar na o.s -->
-            <div id="divplano" class="opcoes hidden">
-              <label for="plano1">Plano: </label>
-              <input type="text" id="plano1" name="plano1" placeholder="650MB-99,90">
-            </div>
-
-            <div id="divroteador" class="opcoes hidden">
-              <label for="roteador1">Modelo do Roteador: </label>
-              <input type="text" id="roteador1" name="roteador1" placeholder="HUAWEI AX3S">
-            </div>
-
-            <div id="divmac" class="opcoes hidden">
-              <label for="mac1">Mac da ONU: </label>
-              <input type="text" id="mac1" name="mac1" placeholder="DACMED123456">
-            </div>
-
-            <div id="divsinal" class="opcoes hidden">
-              <label for="sinal1">Sinal RX: </label>
-              <input type="text" id="sinal1" name="sinal1" placeholder="Ex: -30">
-            </div>
-
-            <div id="divsinaltx" class="opcoes hidden">
-              <label for="sinaltx">Sinal TX: </label>
-              <input type="text" id="sinaltx" name="sinaltx" placeholder="Ex: 2.78">
-            </div>
-
-            <!-- informações referentes a cor dos leds -->
-
-            <p><strong>Sobre os equipamentos:</strong></p>
-            <div>
-              <br>
-              <input type="checkbox" id="ledVermelhoroteador" name="leds" class="leds"
-                value="Há led vermelho no roteador">
-              <label for="ledVermelhoroteador">Há led vermelho no roteador</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="ledvermelhoonu" name="leds" class="leds" value="Há led vermelho na onu">
-              <label for="ledvermelhoonu">Há led vermelho na ONU</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="ledpon" name="leds" class="leds" value="Há led pon piscando na onu">
-              <label for="ledpon">Há led pon piscando na ONU</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="ledsapagados" name="leds" class="leds"
-                value="LED dos equipamentos estão apagados">
-              <label for="ledsapagados">LED dos equipamentos estão apagados</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="ledonuapagada" name="leds" class="leds" value="LEDs da ONU estão apagadas">
-              <label for="ledonuapagada">LEDs da ONU estão apagadas</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="ledroteadorapagado" name="leds" class="leds"
-                value="LEDs do roteador estão apagadas">
-              <label for="ledroteadorapagado">LEDs do roteador estão apagadas</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="procedimentocompleto" name="leds" class="leds"
-                value="Já realizou procedimento completo">
-              <label for="procedimentocompleto">Já realizou procedimento completo</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="cabosConectados" name="leds" class="leds" value="Cabos estão bem conectados">
-              <label for="cabosConectados">Cabos estão bem conectados</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="semsinal" name="leds" class="leds"
-                value="Não retornou sinal após procedimentos">
-              <label for="semsinal">Não retornou sinal após procedimentos</label>
-            </div>
-
-            <div>
-              <input type="checkbox" id="resetou" name="leds" class="leds" value="O roteador resetou">
-              <label for="resetou">O roteador resetou</label>
-            </div>
-            <br>
-
-            <div id="extrasc" class="opcoes hidden">
-              <label for="extras">Adicione informações extras</label>
-              <input type="text" id="extras" name="extras" placeholder="Informações extras">
-            </div>
-
-            <!-- MODO DE CONTATO COM CLIENTE -->
-            <div id="telefoneMk" class="opcoes hidden">
-              <label for="telefone">Telefone para contato: </label>
-              <input type="text" id="telefone" name="telefone" placeholder="Ex: 4836600800">
-            </div>
-
-            <p><strong>Chamar como:</strong></p>
-            <div>
-              <input type="checkbox" id="whatsapp" name="modocontato" class="modocontato"
-                value="Whatsapp">
-              <label for="whatsapp">Whatsapp</label>
-            </div>
-            <div>
-              <input type="checkbox" id="ligacao" name="modocontato" class="modocontato"
-                value="Ligação">
-              <label for="ligacao">Ligação</label>
-            </div>
-            
-           <br>
-            <div id="refMk" class="opcoes hidden">
-              <label for="ref">Referência do local: </label>
-              <input type="text" id="ref" name="ref" placeholder="Ex: Casa cinza ao lado do mercado ">
-            </div>
-
-            <div id="localMk" class="opcoes hidden">
-              <label for="local">Cole o link da localização do google maps </label>
-              <input type="text" id="local" name="local" placeholder="Link localização google maps">
-            </div>
-
-          </div>
-
-          <!-- PERSONALIZAVEL -->
-          <div id="opcoesPersonalizavel" class="opcoes hidden">
-
-            <div id="regiaoMk6" class="opcoes hidden">
-              <label for="regiao6">Adicione bairro, cidade e defeito</label>
-              <input type="text" id="regiao6" name="regiao6" placeholder="Ex: Centro, Jaguaruna - PROBLEMA">
-            </div>
-
-            <div id="horarioMk6" class="opcoes hidden">
-              <label for="horario6">Restrição de horário:</label>
-              <input type="text" id="horario6" name="horario6"
-                placeholder="Ex: (terça 09/06 período da tarde e quarta 10/06 até 12h)">
-            </div>
-
-            <div id="solicitanteMk6" class="opcoes hidden">
-              <label for="solicitante6">Tratado com:</label>
-              <input type="text" id="solicitante6" name="solicitante6" placeholder="Nome de quem solicitou a o.s">
-            </div>
-
-             <!-- informações que devem constar na o.s -->
-            <div id="divplano2" class="opcoes hidden">
-              <label for="plano2">Plano: </label>
-              <input type="text" id="plano2" name="plano2" placeholder="650MB-99,90">
-            </div>
-
-            <div id="divroteador2" class="opcoes hidden">
-              <label for="roteador2">Modelo do Roteador: </label>
-              <input type="text" id="roteador2" name="roteador2" placeholder="HUAWEI AX3S">
-            </div>
-
-            <div id="divmac2" class="opcoes hidden">
-              <label for="mac2">Mac da ONU: </label>
-              <input type="text" id="mac2" name="mac2" placeholder="DACMED123456">
-            </div>
-
-            <div id="divsinal2" class="opcoes hidden">
-              <label for="sinal2">Sinal RX: </label>
-              <input type="text" id="sinal2" name="sinal2" placeholder="Ex: -30">
-            </div>
-
-            <div id="divsinaltx2" class="opcoes hidden">
-              <label for="sinaltx2">Sinal TX: </label>
-              <input type="text" id="sinaltx2" name="sinaltx2" placeholder="Ex: 2.78">
-            </div>
-
-            <!----->
-
-            <div id="extrasc6" class="opcoes hidden">
-              <label for="extras6">Adicione informações</label>
-              <input type="text" id="extras6" name="extras6" placeholder="Adicione informações">
-            </div>
-
-            <div id="osanteriores" class="opcoes hidden">
-              <label for="osanterior">O.S anterior:</label>
-              <input type="text" id="osanterior" name="osanterior" placeholder="Cole a O.S anterior">
-            </div>
-
-            <div id="telefoneMk6" class="opcoes hidden">
-              <label for="telefone6">Telefone para contato: </label>
-              <input type="text" id="telefone6" name="telefone6" placeholder="Ex: 4836600800">
-            </div>
-
-            <div id="refMk6" class="opcoes hidden">
-              <label for="ref6">Referência do local: </label>
-              <input type="text" id="ref6" name="ref6" placeholder="Ex: Casa cinza ao lado do mercado ">
-            </div>
-
-            <div id="localMk6" class="opcoes hidden">
-              <label for="local6">Cole o link da localização do google maps </label>
-              <input type="text" id="local6" name="local6" placeholder="Link localização google maps">
-            </div>
-          </div>
-
-          <!-- INTERNET LENTA -->
-          <div id="opcoesInternetLenta" class="opcoes hidden">
-
-            <div id="regiaoMk2" class="opcoes hidden">
-              <label for="regiao2">Adicione bairro, cidade</label>
-              <input type="text" id="regiao2" name="regiao2" placeholder="Ex: Centro, Jaguaruna">
-            </div>
-
-            <div id="horarioMk2" class="opcoes hidden">
-              <label for="horario2">Restrição de horário:</label>
-              <input type="text" id="horario2" name="horario2" placeholder="Ex: (Sempre tem gente no local)">
-            </div>
-
-            <div id="solicitanteMk2" class="opcoes hidden">
-              <label for="solicitante2">Tratado com:</label>
-              <input type="text" id="solicitante2" name="solicitante2" placeholder="Nome de quem solicitou a o.s">
-            </div>
-
-            <label for="procedimentoCompletoLento">Realizou procedimento completo? *</label>
-            <select id="procedimentoCompletoLento" name="procedimentoCompletoLento">
-              <option value="">-- Selecione --</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-            </select>
-
-            <div id="dispositivosDiv" class="opcoes hidden">
-              <label for="dispositivos">Está lento em: *</label>
-              <input type="text" id="dispositivos" name="dispositivosDiv"
-                placeholder="Digite em quais dispositivos está apresentando lentidão">
-            </div>
-
-            <div id="tvCabeada" class="opcoes hidden">
-              <label for="tvCabeadaDiv">TV é cabeada? <br>-- Se tiver TV, marque. Caso contrário, prossiga. </label>
-              <select id="tvCabeadaDiv">
-                <option value="">-- Selecione --</option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
-              </select>
-            </div>
-
-            <div id="sinalDiv" class="opcoes hidden">
-              <label for="sinal">Qual o sinal que aparece no pedido? *</label>
-              <input type="text" id="sinal" name="sinal" placeholder="Ex: RX -25.85 | TX 2.98">
-            </div>
-
-            <div id="extrasc2" class="opcoes hidden">
-              <label for="extras2">Adicione informações extras</label>
-              <input type="text" id="extras2" name="extras2"
-                placeholder="Possível defeito, quedas no sistema?, conf. alteradas, modelo do equipamento, é reincidente? Obs da última manut.">
-            </div>
-
-            <div id="telefoneMk2" class="opcoes hidden">
-              <label for="telefone2">Telefone para contato: </label>
-              <input type="text" id="telefone2" name="telefone2" placeholder="Ex: 4836600800">
-            </div>
-
-            <div id="refMk2" class="opcoes hidden">
-              <label for="ref2">Referência do local: </label>
-              <input type="text" id="ref2" name="ref2" placeholder="Ex: Casa cinza ao lado do mercado ">
-            </div>
-
-            <div id="localMk2" class="opcoes hidden">
-              <label for="local2">Cole o link da localização do google maps </label>
-              <input type="text" id="local2" name="local2" placeholder="Link localização google maps">
-            </div>
-          </div>
-
-          <!-- INTERNET CAINDO -->
-
-          <div id="opcoesInternetCaindo" class="opcoes hidden">
-
-            <div id="regiaoMk3" class="opcoes hidden">
-              <label for="regiao3">Adicione bairro, cidade</label>
-              <input type="text" id="regiao3" name="regiao3" placeholder="Ex: Centro, Jaguaruna">
-            </div>
-
-            <div id="horarioMk3" class="opcoes hidden">
-              <label for="horario3">Restrição de horário:</label>
-              <input type="text" id="horario3" name="horario3"
-                placeholder="Ex: (terça 09/06 período da tarde e quarta 10/06 até 12h)">
-            </div>
-
-            <div id="solicitanteMk3" class="opcoes hidden">
-              <label for="solicitante3">Tratado com:</label>
-              <input type="text" id="solicitante3" name="solicitante3" placeholder="Nome de quem solicitou a o.s">
-            </div>
-
-            <label for="procedimentoCompletoCaindo">Realizou procedimento completo? *</label>
-            <select id="procedimentoCompletoCaindo" name="procedimentoCompletoCaindo">
-              <option value="">-- Selecione --</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-            </select>
-
-            <label for="quedas">Há quedas no sistema? *</label>
-            <select id="quedas" name="quedas">
-              <option value="">-- Selecione --</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-            </select>
-
-            <div id="conectadoCabo1" class="opcoes hidden">
-              <label for="cabosConectadosDiv1">Cabos estão bem conectados? *</label>
-              <select id="cabosConectadosDiv1" name="cabosConectadosDiv1">
-                <option value="">-- Selecione --</option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
-              </select>
-            </div>
-
-            <div id="dispositivosDiv1" class="opcoes hidden">
-              <label for="dispositivos1">Está Caindo em: *</label>
-              <input type="text" id="dispositivos1" name="dispositivosDiv1"
-                placeholder="Digite em quais dispositivos estão apresentando quedas">
-            </div>
-
-            <div id="sinalDiv1" class="opcoes hidden">
-              <label for="sinalcaindo">Qual o sinal que aparece no pedido? *</label>
-              <input type="text" id="sinalcaindo" name="sinalcaindo" placeholder="Ex: RX -25.85 | TX 2.98">
-            </div>
-
-            <div id="extrasc3" class="opcoes hidden">
-              <label for="extras3">Adicione informações extras</label>
-              <input type="text" id="extras3" name="extras3"
-                placeholder="Possível defeito, conf. alteradas, modelo do equipamento, é reincidente? Obs da última manut.">
-            </div>
-
-            <div id="telefoneMk3" class="opcoes hidden">
-              <label for="telefone3">Telefone para contato: </label>
-              <input type="text" id="telefone3" name="telefone3" placeholder="Ex: 4836600800">
-            </div>
-
-            <div id="refMk3" class="opcoes hidden">
-              <label for="ref3">Referência do local: </label>
-              <input type="text" id="ref3" name="ref3" placeholder="Ex: Casa cinza ao lado do mercado ">
-            </div>
-
-            <div id="localMk3" class="opcoes hidden">
-              <label for="local3">Cole o link da localização do google maps </label>
-              <input type="text" id="local3" name="local3" placeholder="Link localização google maps">
-            </div>
-          </div>
-
-          <!-- SINAL ALTO -->
-          <div id="opcoesSinalAlto" class="opcoes hidden">
-
-            <div id="regiaoMk5" class="opcoes hidden">
-              <label for="regiao5">Adicione bairro, cidade</label>
-              <input type="text" id="regiao5" name="regiao5" placeholder="Ex: Centro, Jaguaruna">
-            </div>
-
-            <div id="horarioMk5" class="opcoes hidden">
-              <label for="horario5">Restrição de horário:</label>
-              <input type="text" id="horario5" name="horario5" placeholder="Ex: (Somente após as 18hrs)">
-            </div>
-
-            <div id="solicitanteMk5" class="opcoes hidden">
-              <label for="solicitante5">Tratado com:</label>
-              <input type="text" id="solicitante5" name="solicitante5" placeholder="Nome de quem solicitou a o.s">
-            </div>
-
-            <div id="sinalDiv5" class="opcoes hidden">
-              <label for="sinal5">Qual o sinal que aparece no pedido? *</label>
-              <input type="text" id="sinal5" name="sinal5" placeholder="Ex: RX -25.85 | TX 2.98">
-            </div>
-
-            <label for="quedas5">Há quedas no sistema? *</label>
-            <select id="quedas5" name="quedas1">
-              <option value="">-- Selecione --</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-            </select>           
-
-            <div id="extrasc5" class="opcoes hidden">
-              <label for="extras5">Adicione informações extras</label>
-              <input type="text" id="extras5" name="extras5"
-                placeholder="Possível defeito, é reincidente? Obs da última manut.">
-            </div>
-
-            <div id="telefoneMk5" class="opcoes hidden">
-              <label for="telefone5">Telefone para contato: </label>
-              <input type="text" id="telefone5" name="telefone5" placeholder="Ex: 4836600800">
-            </div>
-
-            <div id="refMk5" class="opcoes hidden">
-              <label for="ref5">Referência do local: </label>
-              <input type="text" id="ref5" name="ref5" placeholder="Ex: Casa cinza ao lado do mercado ">
-            </div>
-
-            <div id="localMk5" class="opcoes hidden">
-              <label for="local5">Cole o link da localização do google maps </label>
-              <input type="text" id="local5" name="local5" placeholder="Link localização google maps">
-            </div>
-          </div>
-
-          <!-- TV TAC COM DEFEITO -->
-
-          <div id="opcoesTvTacDefeito" class="opcoes hidden">
-
-            <div id="regiaoMk4" class="opcoes hidden">
-              <label for="regiao4">Adicione bairro, cidade</label>
-              <input type="text" id="regiao4" name="regiao4" placeholder="Ex: Centro, Jaguaruna">
-            </div>
-
-            <div id="horarioMk4" class="opcoes hidden">
-              <label for="horario4">Restrição de horário:</label>
-              <input type="text" id="horario4" name="horario4" placeholder="Ex: (Somente aos sábados no local)">
-            </div>
-
-            <div id="solicitanteMk4" class="opcoes hidden">
-              <label for="solicitante4">Tratado com:</label>
-              <input type="text" id="solicitante4" name="solicitante4" placeholder="Nome de quem solicitou a o.s">
-            </div>
-
-            <label for="procedimentoCompletoTv4">Realizou procedimento completo? *</label>
-            <select id="procedimentoCompletoTv4" name="procedimentoCompletoTv4">
-              <option value="">-- Selecione --</option>
-              <option value="sim">Sim</option>
-              <option value="nao">Não</option>
-            </select>
-
-            <div id="conectadoCabo4" class="opcoes hidden">
-              <label for="cabosConectadosDiv4">Cabos estão bem conectados? *</label>
-              <select id="cabosConectadosDiv4" name="cabosConectadosDiv4">
-                <option value="">-- Selecione --</option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
-              </select>
-            </div>
-
-            <div id="minimiza" class="opcoes hidden">
-              <label for="minimiza4">Está minimizando a tela? *</label>
-              <select id="minimiza4" name="minimiza4">
-                <option value="">-- Selecione --</option>
-                <option value="sim">Sim</option>
-                <option value="nao">Não</option>
-              </select>
-            </div>
-
-            <div id="extrasc4" class="opcoes hidden">
-              <label for="extras4">Adicione informações extras</label>
-              <input type="text" id="extras4" name="extras4"
-                placeholder="Possível defeito. Propaganda? É reincidente? Obs da última manut.">
-            </div>
-
-            <div id="telefoneMk4" class="opcoes hidden">
-              <label for="telefone4">Telefone para contato: </label>
-              <input type="text" id="telefone4" name="telefone4" placeholder="Ex: 4846600800">
-            </div>
-
-            <div id="refMk4" class="opcoes hidden">
-              <label for="ref4">Referência do local: </label>
-              <input type="text" id="ref4" name="ref4" placeholder="Ex: Casa cinza ao lado do mercado ">
-            </div>
-
-            <div id="localMk4" class="opcoes hidden">
-              <label for="local4">Cole o link da localização do google maps </label>
-              <input type="text" id="local4" name="local4" placeholder="Link localização google maps">
-            </div>
-          </div>
-
-          <!-- CABEAMENTO -->
-          <div id="opcoesCabeamento" class="opcoes hidden">
-
-            <div id="regiaoMk7" class="opcoes hidden">
-              <label for="regiao7">Adicione bairro, cidade</label>
-              <input type="text" id="regiao7" name="regiao7" placeholder="Ex: Centro, Jaguaruna">
-            </div>
-
-            <div id="horarioMk7" class="opcoes hidden">
-              <label for="horario7">Restrição de horário:</label>
-              <input type="text" id="horario7" name="horario7"
-                placeholder="Ex: (terça 09/06 período da tarde e quarta 10/06 até 12h)">
-            </div>
-
-            <div id="solicitanteMk7" class="opcoes hidden">
-              <label for="solicitante7">Tratado com:</label>
-              <input type="text" id="solicitante7" name="solicitante7" placeholder="Nome de quem solicitou a o.s">
-            </div>
-
-            <div id="cabearOq" class="opcoes hidden">
-              <label for="cabear">Deseja cabear o que? * </label>
-              <input type="text" id="cabear" name="cabear"
-                placeholder="Ex: Cliente solicita passagem de cabo para sua TV">
-            </div>
-
-            <div id="metragemMk" class="opcoes hidden">
-              <label for="metragem">Metragem: *</label>
-              <input type="text" id="metragem" name="metragem" placeholder="10 metros">
-            </div>
-
-            <div id="cienteMk" class="opcoes hidden">
-              <input type="checkbox" id="ciente" name="ciente" value="Cliente está ciente dos valores">
-              <label for="ciente">Cliente está ciente dos valores? (se aplicável): </label>
-            </div>
-            <br>
-
-            <div id="pagamentoMk" class="opcoes hidden">
-              <label for="pagamento">Pagamento: </label>
-              <select id="pagamento" name="pagamento">
-                <option value="">-- Selecione --</option>
-                <option value="Será pago no: Pix">Pix</option>
-                <option value="Será pago no local">No local</option>
-                <option value="Será pago no: Boleto">Boleto</option>
-                <option value="**Não será cobrado**">Nao será cobrado</option>
-                <option value="**Não será cobrado, cliente renovou plano**">Nao será cobrado/renovou</option>
-
-              </select>
-            </div>
-
-            <div id="extrasc7" class="opcoes hidden">
-              <label for="extras7">Adicione informações se necessário</label>
-              <input type="text" id="extras7" name="extras7" placeholder="Adicione informações">
-            </div>
-
-            <div id="telefoneMk7" class="opcoes hidden">
-              <label for="telefone7">Telefone para contato: </label>
-              <input type="text" id="telefone7" name="telefone7" placeholder="Ex: 4836600800">
-            </div>
-
-            <div id="refMk7" class="opcoes hidden">
-              <label for="ref7">Referência do local: </label>
-              <input type="text" id="ref7" name="ref7" placeholder="Ex: Casa cinza ao lado do mercado ">
-            </div>
-
-            <div id="localMk7" class="opcoes hidden">
-              <label for="local7">Cole o link da localização do google maps </label>
-              <input type="text" id="local7" name="local7" placeholder="Link localização google maps">
-            </div>
-          </div>
-
-          <!-- INSTALAÇÃO -->
-
-          <div id="opcoesInstalacao" class="opcoes hidden">
-
-            <div id="extraInstalacaoFibra">
-              <label for="nomeAtendente">Nome da Atendente:</label>
-              <input type="text" id="nomeAtendente" name="nomeAtendente" placeholder="Nome da atendente">
-
-              <label for="planoCliente">Plano do Cliente (Megas e Valor):</label>
-              <input type="text" id="planoCliente" name="planoCliente" placeholder="Ex: 1000MB 199,90">
-
-              <label for="cobrancaInstalacao">Cobrança de Instalação:</label>
-              <p class="insta">Instalação grátis ou paga, com informação da forma de cobrança e valor.</p>
-              <input type="text" id="cobrancaInstalacao" name="cobrancaInstalacao"
-                placeholder="Gratuita ou Valor + forma de pagamento">
-
-              <label for="tipoRoteador">Roteador:</label>
-              <select id="tipoRoteador" name="roteador">
-                <option value="">-- Selecione --</option>
-                <option value="Roteador Próprio">Próprio</option>
-                <option value="Roteador Comodato">Comodato</option>
-              </select>
-              <br>
-              <label for="appsCortesia">Apps Cortesia:</label>
-              <input type="text" id="appsCortesia" name="appsCortesia" placeholder="Ex: 3 APP PLAYHUB">
-
-              <label for="metragemCabos">Metragem de Cabeamento Disponível:</label>
-              <input type="text" id="metragemCabos" name="metragemCabos" placeholder="Ex: 2 cabos de até 15m">
-
-              <label for="vencimentoFatura">Dia de Vencimento da Fatura:</label>
-              <select id="vencimentoFatura" name="vencimentoFatura">
-                <option value="">-- Selecione --</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-              </select>
-              <br>
-              <label for="fiacao">Fiação:</label>
-              <select id="fiacao" name="fiacao">
-                <option value="">-- Selecione --</option>
-                <option value="aerea">Aérea</option>
-                <option value="subterranea">Subterrânea</option>
-                <option value="mista">Mista</option>
-              </select>
-              <br>
-              <p><strong>Cliente está ciente sobre:</strong></p>
-              <div>
-                <input type="checkbox" id="prateleira" name="clienteCiente" class="clienteCiente"
-                  value="Ciente sobre a prateleira">
-                <label for="prateleira">Prateleira</label>
-              </div>
-              <div>
-                <input type="checkbox" id="filtroLinha" name="clienteCiente" class="clienteCiente"
-                  value="Ciente sobre o filtro de linha">
-                <label for="filtroLinha">Filtro de Linha</label>
-              </div>
-              <div>
-                <input type="checkbox" id="tomada" name="clienteCiente" class="clienteCiente"
-                  value="Ciente sobre tomadas separadas">
-                <label for="tomada">Tomadas Separadas</label>
-              </div>
-              <div>
-                <input type="checkbox" id="caboExcedente" name="clienteCiente" class="clienteCiente"
-                  value="Ciente sobre o cabo excedente">
-                <label for="caboExcedente">Cabo Excedente</label>
-              </div>
-              <div>
-                <input type="checkbox" id="fibraPassada" name="clienteCiente" class="clienteCiente"
-                  value="Não sabe se já tem fibra passada">
-                <label for="fibraPassada">Não sabe se tem fibra passada</label>
-              </div>
-
-              <div>
-                <input type="checkbox" id="jafibraPassada" name="clienteCiente" class="clienteCiente"
-                  value="Já tem fibra passada">
-                <label for="jafibraPassada">Tem fibra passada</label>
-              </div>
-
-
-              <label for="contrato">Contrato:</label>
-              <select id="contrato" name="contrato">
-                <option value="">-- Selecione --</option>
-                <option value="Assinado Digitalmente">Assinado Digitalmente</option>
-                <option value="Levar em Mãos">Levar em Mãos</option>
-                <option value="Já Assinado na Loja">Já Assinado na Loja</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="telefoneComercial">Telefone para contato:</label>
-              <input type="text" id="telefoneComercial" name="telefoneComercial" placeholder="Ex: 4836600800">
-            </div>
-
-            <div>
-              <label for="refComercial">Referência do local:</label>
-              <input type="text" id="refComercial" name="refComercial" placeholder="Ex: Casa cinza ao lado do mercado">
-            </div>
-
-            <div>
-              <label for="localComercial">Cole o link da localização do Google Maps:</label>
-              <input type="text" id="localComercial" name="localComercial" placeholder="Link localização Google Maps">
-            </div>
-          </div>
-
-          <button type="button" onclick="gerarTexto()">Gerar texto</button>
-          <p id="textoGerado"></p>
-          <button type="button" id="copiarTextoo" class="hidden">Copiar Texto</button>
-        </form>
-      </div>
-
-      <div class="container">
-        <h2>Gerador de Atendimento</h2>
-        <form id="formulario1">
-          <div>
-            <label for="problemaSelect2">Selecione o problema:</label>
-            <select id="problemaSelect2" name="problemaSelect2">
-              <option value="">-- Selecione --</option>
-              <option value="personalizationA">PERSONALIZAVEL</option>
-              <option value="mpc">MPC</option>
-              <option value="poschamado">PÓS-CHAMADO</option>
-            </select>
-          </div>
-          <!-- PERSONALIZAVEL -->
-          <div id="opcoesPersonalizavel1" class="opcoes hidden">
-            <div id="clientes" class="opcoes hidden">
-              <label for="cliente">Tratado com:</label>
-              <input type="text" id="cliente" name="cliente" placeholder="Quem solicitou atendimento">
-            </div>
-            <div id="contato" class="opcoes hidden">
-              <label for="contatos">Telefone: </label>
-              <input type="text" id="contatos" name="contatos" placeholder="Ex: 4836600800">
-            </div>
-
-            <div id="divorigem2" class="opcoes hidden">
-              <label for="origem2">Origem do contato:</label>
-              <select id="origem2" name="origem2">
-                <option value="">-- Selecione --</option>
-                <option value="Whatsapp">Whatsapp</option>
-                <option value="Presencial">Presencial</option>
-                <option value="Telefônico">Telefônico</option>
-                <option value="Redes sociais">Redes sociais</option>
-              </select>
-            </div>
-            <br>
-            <div id="plano" class="opcoes hidden">
-              <label for="planos">Plano, roteador, MAC e sinal RX / sinal TX: </label>
-              <input type="text" id="planos" name="planos" placeholder="Ex: 650MB, HUAWEI AX3S, RX -25, TX 2.78">
-            </div>
-            <div id="relato" class="opcoes hidden">
-              <label for="relatos">Relato:</label>
-              <input type="text" id="relatos" name="relatos" placeholder="Relato do problema">
-            </div>
-            <div id="alteracoes" class="opcoes hidden">
-              <label for="alteracoesr">Alterações realizadas:</label>
-              <input type="text" id="alteracoesr" name="alteracoesr"
-                placeholder="Ex: Alterado largura de banda, ativado ipv6">
-            </div>
-            <div id="extrasate" class="opcoes hidden">
-              <label for="extrasatendimento">Adicione mais informações:</label>
-              <input type="text" id="extrasatendimento" name="extrasatendimento"
-                placeholder="Adicione mais informações">
-            </div>
-          </div>
-          <!-- MPC -->
-          <div id="opcoesmpc" class="opcoes hidden">
-            <div id="cadastros" class="opcoes hidden">
-              <label for="cadastro">Nome do cadastro: </label>
-              <input type="text" id="cadastro" name="cadastro" placeholder="JOSE DA SILVA">
-            </div>
-            <div id="divcelular" class="opcoes hidden">
-              <label for="celular">Telefone: </label>
-              <input type="text" id="celular" name="celular" placeholder="Ex: (48) 3660-0800">
-            </div>
-            <div id="divorigem" class="opcoes hidden">
-              <label for="origem">Origem do contato:</label>
-              <select id="origem" name="origem">
-                <option value="">-- Selecione --</option>
-                <option value="Whatsapp">Whatsapp</option>
-                <option value="Presencial">Presencial</option>
-                <option value="Telefônico">Telefônico</option>
-                <option value="Redes sociais">Redes sociais</option>
-              </select>
-            </div>
-            <div>
-              <p for="">Motivo:</p>
-              <div>
-                <input type="checkbox" id="duasos" name="motivompc" class="motivompc"
-                  value="Mais de 2 O.S abertas no mês pelo mesmo motivo ou mais.">
-                <label for="duasos">Mais de 2 O.S abertas no mês pelo mesmo motivo ou mais</label>
-              </div>
-              <div>
-                <input type="checkbox" id="redessociais" name="motivompc" class="motivompc"
-                  value="Reclamação via rede social.">
-                <label for="redessociais">Reclamações via redes sociais, google, reclame aqui, youtube, linkedin,
-                  tiktok, etc
-                </label>
-              </div>
-              <div>
-                <input type="checkbox" id="duranteatendimento" name="motivompc" class="motivompc"
-                  value="Reclamação/insatisfação durante o atendimento.">
-                <label for="duranteatendimento">Reclamação/insatisfação durante o atendimento ou pessoas
-                  terceiras</label>
-              </div>
-              <div>
-                <input type="checkbox" id="cancelamento" name="motivompc" class="motivompc" value="Citou cancelamento.">
-                <label for="cancelamento">Citou cancelamento</label>
-              </div>
-              <div>
-                <input type="checkbox" id="trocardeprovedora" name="motivompc" class="motivompc"
-                  value="Mencionou trocar de provedora.">
-                <label for="trocardeprovedora">Mencionou trocar de provedora</label>
-              </div>
-              <div>
-                <input type="checkbox" id="fidelidade" name="motivompc" class="motivompc"
-                  value="Cliente questionou a data de término da fidelidade.">
-                <label for="fidelidade">Cliente questionou a data de término da fidelidade</label>
-              </div>
-              <div>
-                <input type="checkbox" id="quatroatendimentos" name="motivompc" class="motivompc"
-                  value="4 atendimentos abertos em 1 ano (referente a reclamações/manutenções).">
-                <label for="quatroatendimentos">4 atendimentos abertos em 1 ano (referente a
-                  reclamações/manutenções)</label>
-              </div>
-              <br>
-            </div>
-
-            <div id="divinfocadastro" class="opcoes hidden">
-              <label for="infocadastro">Plano, roteador, MAC e sinal RX / sinal TX:
-              </label>
-              <input type="text" id="infocadastro" name="infocadastro"
-                placeholder="Ex: 650MB, HUAWEI AX3S, RX -25, TX 2.78">
-            </div>
-            <div id="divrelatocliente" class="opcoes hidden">
-              <label for="relatocliente">Relato:</label>
-              <input type="text" id="relatocliente" name="relatocliente" placeholder="Relato do cliente">
-            </div>
-            <div id="divdesfecho" class="opcoes hidden">
-              <label for="desfecho">Desfecho:</label>
-              <input type="text" id="desfecho" name="desfecho"
-                placeholder="Ex: Foi feito x alterações, foi aberto o.s, cliente esta testando, etc ">
-            </div>
-            <div id="divplus" class="opcoes hidden">
-              <label for="plus">Adicione mais informações: (se houver)</label>
-              <input type="text" id="plus" name="plus" placeholder="Adicione mais informações">
-            </div>
-          </div>
-
-          <!-- PÓS-CHAMADO -->
-
-          <div id="opcoespos" class="opcoes hidden">
-            <div id="cadastros2" class="opcoes hidden">
-              <label for="cadastro2">Nome do cadastro: </label>
-              <input type="text" id="cadastro2" name="cadastro2" placeholder="JOSE DA SILVA">
-            </div>
-            <div id="divcelular2" class="opcoes hidden">
-              <label for="celular2">Telefone do cliente: </label>
-              <input type="text" id="celular2" name="celular2" placeholder="Ex: (48) 3660-0800">
-            </div>
-            <div id="divorigem3" class="opcoes hidden">
-              <label for="origem3">Origem do contato:</label>
-              <select id="origem3" name="origem3">
-                <option value="">-- Selecione --</option>
-                <option value="Whatsapp">Whatsapp</option>
-                <option value="Presencial">Presencial</option>
-                <option value="Telefônico">Telefônico</option>
-                <option value="Redes sociais">Redes sociais</option>
-              </select>
-            </div>
-            <br>
-            <div id="divdataultimavisita" class="opcoes hidden">
-              <label for="dataultimavisita">Data da última visita: </label>
-              <input type="date" id="dataultimavisita" name="dataultimavisita">
-            </div>
-            <div id="divmotivodavisita" class="opcoes hidden">
-              <label for="motivodavisita">Motivo da abertura da O.S.: </label>
-              <input type="text"" id="motivodavisita" name="dataultimavisita"
-                placeholder="Descreva o problema que gerou a visita técnica">
-            </div>
-            <div id="divtecnico" class="opcoes hidden">
-              <label for="tecnico">Nome do técnico que realizou o atendimento: </label>
-              <input type="text"" id="tecnico" name="tecnico" placeholder="Alisson">
-            </div>
-            <div id="divsituacao" class="opcoes hidden">
-              <label for="situacao">Situação:</label>
-              <p>
-                <strong>Recorrente:</strong> Retornou com o mesmo problema da O.S anterior.<br>
-                <strong>Reincidente:</strong> Retornou com outro problema diferente da O.S anterior.
-              </p>
-
-              <select id="situacao" name="situacao">
-                <option value="">-- Selecione --</option>
-                <option value="*(X) Recorrente* ( ) Reincidente">Recorrente </option>
-                <option value="( ) Recorrente *(X) Reincidente*">Reincidente </option>
-              </select>
-            </div>
-            <br>
-            <div id="divrelatocliente2" class="opcoes hidden">
-              <label for="relatocliente2">Relato:</label>
-              <input type="text" id="relatocliente2" name="relatocliente2"
-                placeholder="Exemplo: Cliente relata que após a visita técnica, a internet continua caindo. Mesmo problema da O.S. anterior.">
-            </div>
-            <div id="divplus2" class="opcoes hidden">
-              <label for="plus2">Adicione mais informações: (se houver)</label>
-              <input type="text" id="plus2" name="plus2" placeholder="Adicione mais informações">
-            </div>
-
-          </div>
-
-
-
-          <button type="button" onclick="gerarA()">Gerar atendimento</button>
-          <p id="atendimento"></p>
-          <button type="button" id="copiarA" class="hidden">Copiar Texto</button>
-        </form>
-      </div>
-    </div>
-
-    <div class="containers-row">
-      <div class="container">
-        <h2>Formatador de Localização</h2>
-        <label for="localizacaoInput">Cole a localização:</label>
-        <input type="text" id="localizacaoInput" placeholder="Lat: -28.7134130 / Long: -49.054707">
-        <button onclick="formatarLocalizacao()">Gerar Link</button>
-        <p id="localizacaoFormatada"></p>
-        <button onclick="copiarResultado()">Copiar Link</button>
-      </div>
-
-      <div class="container">
-        <h2>Verificar MAC</h2>
-        <input type="text" id="macInputVerificar" placeholder="Digite o endereço MAC">
-        <button onclick="verificarMac()">Verificar</button>
-        <p id="resultado"></p>
-        <iframe id="iframeResultado" scrolling="" frameborder="no"></iframe>
-      </div>
-
-
-
-      <!-- <div class="container">
-        <h2>Formatador de Nome <span class="destaque">dmview</span></h2>
-        <input type="text" id="macInput" placeholder="Digite o nome">
-        <button onclick="formatar_nome()">Formatar Nome</button>
-        <p id="nomeResultado"></p>
-        <button id="botaoCopiarNome" onclick="copiarResultadoNome()">Copiar Nome</button>
-      </div> -->
-
-
-      <!--
-      <div class="container">
-        <a class="botao" href="https://www.google.com.br/maps" target="_blank">
-          <button>Ir para Google Maps</button>
-        </a>
-      </div>
-      <div class="container">
-        <h2>Visualizar Mapa</h2>
-        <label for="coordenadasInput">Cole coordenadas:</label>
-        <input type="text" id="coordenadasInput" placeholder="Lat: -28.633459, Long: -49.134450">
-        <button onclick="gerarIFrame()">Gerar iframe</button>
-        <div id="mapa"></div>
-      </div>
-    </div>-->
-    </div>
-
-    <script src="script.js"></script>
-
+    </aside>
+
+    <main class="main-content" id="inicio">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">T</span><strong>TAC HelpDesk</strong></div>
+        <div class="breadcrumb">Workspace <span>/</span> <strong>HelpDesk</strong></div>
+        <button id="botaoTema" class="theme-toggle" type="button" aria-label="Alternar entre modo claro e escuro">☀️ Modo claro</button>
+      </header>
+
+      <section class="welcome">
+        <div>
+          <p class="eyebrow">PAINEL DE SUPORTE TÉCNICO</p>
+          <h1>Olá! Vamos resolver isso. <span>✦</span></h1>
+          <p class="welcome-copy">Acesse suas ferramentas e agilize os atendimentos em um só lugar.</p>
+        </div>
+        <div class="welcome-chip"><span class="status-dot"></span> Sistema de apoio</div>
+      </section>
+
+      <section id="ferramentas" class="section-block">
+        <div class="section-heading"><div><p class="eyebrow">ACESSO RÁPIDO</p><h2>Ferramentas rápidas</h2></div></div>
+        <div class="quick-grid">
+          <article class="tool-card link-card">
+            <div class="tool-icon icon-green">↗</div><div><h3>Drive Suporte</h3><p>Arquivos e materiais da equipe.</p></div>
+            <button type="button" class="btn btn-secondary" onclick="abrirLink()">Abrir Drive <span>↗</span></button>
+          </article>
+          <article class="tool-card link-card">
+            <div class="tool-icon icon-blue">?</div><div><h3>FAQ Comercial</h3><p>Consulte a biblioteca comercial.</p></div>
+            <button type="button" class="btn btn-secondary" onclick="abrirLink1()">Abrir FAQ <span>↗</span></button>
+          </article>
+          <article class="tool-card">
+            <div class="tool-icon icon-purple">#</div><div><h3>CPF / CNPJ</h3><p>Formate documentos rapidamente.</p></div>
+            <label for="docInput">Documento</label><input type="text" id="docInput" placeholder="Digite ou cole o CPF/CNPJ" inputmode="numeric">
+            <button type="button" class="btn btn-primary" onclick="formatadorDoc()">Formatar documento</button>
+            <p id="docResultado" class="result-text" aria-live="polite"></p>
+            <button id="botaoCopiarDoc" type="button" class="btn btn-copy hidden" onclick="copiarDocumento()">Copiar resultado</button>
+          </article>
+          <article class="tool-card">
+            <div class="tool-icon icon-orange">Aa</div><div><h3>Conversor de texto</h3><p>Converta entre maiúsculas e minúsculas.</p></div>
+            <label for="inputTexto">Texto</label><textarea id="inputTexto" rows="3" placeholder="Digite seu texto"></textarea>
+            <div class="button-row"><button type="button" class="btn btn-secondary" onclick="converterMaiusculas()">MAIÚSCULAS</button><button type="button" class="btn btn-secondary" onclick="converterMinusculas()">minúsculas</button></div>
+            <p id="textoConvertido" class="result-text" aria-live="polite"></p>
+            <button id="botaoCopiarTexto" type="button" class="btn btn-copy hidden" onclick="copiarTextoConversor()">Copiar texto</button>
+          </article>
+        </div>
+      </section>
+
+      <section id="os" class="section-block">
+        <div class="section-heading"><div><p class="eyebrow">PADRONIZAÇÃO TÉCNICA</p><h2>Gerador de O.S.</h2><p>Selecione o tipo de solicitação e preencha os campos necessários.</p></div><span class="section-number">01</span></div>
+        <article class="panel">
+          <div class="panel-title"><div class="panel-icon">＋</div><div><h3>Nova ordem de serviço</h3><p>Os campos são exibidos conforme o tipo selecionado.</p></div></div>
+          <form id="formulario">
+            <div class="field full"><label for="problemaSelect">Tipo de solicitação</label><select id="problemaSelect" name="problemaSelect">
+              <option value="">Selecione uma opção</option><option value="semInternet">Sem internet</option><option value="personalization">Personalizável</option><option value="internetLenta">Internet lenta</option><option value="internetCaindo">Internet caindo</option><option value="sinalAlto">Sinal alto</option><option value="tvTac">TV TAC com defeito</option><option value="instalacao">Instalação de fibra — pedido</option><option value="cabeamento">Cabeamento</option>
+            </select></div>
+            <div id="osFields" class="form-grid hidden"></div>
+            <div class="form-actions"><button type="button" class="btn btn-primary" onclick="gerarTexto()">Gerar texto da O.S. <span>→</span></button><button type="reset" class="btn btn-ghost" id="limparOS">Limpar campos</button></div>
+          </form>
+          <div class="output-panel"><div class="output-heading"><span>RESULTADO GERADO</span><span class="output-indicator">● Pronto para copiar</span></div><textarea id="textoGerado" rows="9" placeholder="O texto da O.S. aparecerá aqui..." readonly></textarea><button type="button" id="copiarTextoo" class="btn btn-copy hidden">▣ Copiar texto da O.S.</button></div>
+        </article>
+      </section>
+
+      <section id="atendimento" class="section-block">
+        <div class="section-heading"><div><p class="eyebrow">REGISTRO DE CONTATO</p><h2>Gerador de atendimento</h2><p>Monte um relato padronizado para o histórico do cliente.</p></div><span class="section-number">02</span></div>
+        <article class="panel">
+          <div class="panel-title"><div class="panel-icon blue">▤</div><div><h3>Novo registro de atendimento</h3><p>Escolha o modelo e preencha as informações do contato.</p></div></div>
+          <form id="formulario1">
+            <div class="field full"><label for="problemaSelect2">Modelo de atendimento</label><select id="problemaSelect2" name="problemaSelect2">
+              <option value="">Selecione uma opção</option><option value="personalizationA">Personalizável</option><option value="mpc">MPC</option><option value="poschamado">Pós-chamado</option>
+            </select></div>
+            <div id="atendimentoFields" class="form-grid hidden"></div>
+            <div class="form-actions"><button type="button" onclick="gerarA()" class="btn btn-primary">Gerar atendimento <span>→</span></button><button type="reset" class="btn btn-ghost" id="limparAtendimento">Limpar campos</button></div>
+          </form>
+          <div class="output-panel"><div class="output-heading"><span>RESULTADO GERADO</span><span class="output-indicator">● Pronto para copiar</span></div><textarea id="atendimentoTexto" rows="9" placeholder="O texto do atendimento aparecerá aqui..." readonly></textarea><button type="button" id="copiarA" class="btn btn-copy hidden">▣ Copiar atendimento</button></div>
+        </article>
+      </section>
+
+      <section id="rede" class="section-block">
+        <div class="section-heading"><div><p class="eyebrow">UTILITÁRIOS DE REDE</p><h2>Rede e localização</h2></div></div>
+        <div class="quick-grid network-grid">
+          <article class="tool-card">
+            <div class="tool-icon icon-green">⌖</div><h3>Formatador de localização</h3><p>Transforme coordenadas em um link do Google Maps.</p>
+            <label for="localizacaoInput">Coordenadas</label><input type="text" id="localizacaoInput" placeholder="Lat: -28.7134130 / Long: -49.054707">
+            <button type="button" onclick="formatarLocalizacao()" class="btn btn-primary">Gerar link do mapa</button>
+            <p id="localizacaoFormatada" class="result-text break-word" aria-live="polite"></p>
+            <button type="button" id="copiarLocalizacao" class="btn btn-copy hidden" onclick="copiarResultado()">Copiar link</button>
+          </article>
+          <article class="tool-card">
+            <div class="tool-icon icon-blue">⌁</div><h3>Verificar fabricante por MAC</h3><p>Consulte o fabricante associado a um endereço MAC.</p>
+            <label for="macInputVerificar">Endereço MAC</label><input type="text" id="macInputVerificar" placeholder="Ex.: AA:BB:CC:11:22:33">
+            <button type="button" onclick="verificarMac()" class="btn btn-primary">Consultar MAC</button>
+            <p id="resultado" class="result-text" aria-live="polite"></p>
+            <div id="macResultado" class="mac-result hidden"></div>
+          </article>
+        </div>
+      </section>
+      <footer class="footer"><span><strong>TAC HelpDesk</strong> · Ferramentas de apoio ao atendimento</span><span>Feito para facilitar sua rotina <span class="footer-heart">♥</span></span></footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
 </body>
-
 </html>
