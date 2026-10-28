@@ -367,9 +367,6 @@ body.modo-escuro .botao-tema {
     border-color: #666666;
 }
 
-body.modo-escuro .botao-tema:hover {
-    background-color: #444444;
-}
 
 /* AJUSTE PARA CELULARES */
 @media (max-width: 480px) {
