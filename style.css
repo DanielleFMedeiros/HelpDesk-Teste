@@ -1,0 +1,291 @@
+body {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  /* Alterei a cor de fundo para um cinza claro */
+}
+
+h1 {
+  color: green;
+}
+
+/*.destaque {
+  font-size: 0.8em; 
+  font-style: italic;
+  color: #45a049;
+}*/
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+}
+
+footer {
+  background-color: #4CAF50;
+  /* Alterei a cor de fundo do rodapé */
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 10px;
+}
+
+.container,
+.container2 {
+  flex: 1 1 100%;
+  /* Alterei a largura dos containers para ocupar 100% do espaço disponível */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container input:not([type="checkbox"]):not([type="radio"]),
+.container2 input:not([type="checkbox"]):not([type="radio"]),
+.container textarea,
+.container2 textarea,
+.container button,
+.container2 button {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.container button,
+.container2 button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.container button:hover,
+.container2 button:hover {
+  background-color: #45a049;
+}
+
+#mapa {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.container a button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 15px 20px;
+  font-size: 1rem;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.container a button:hover {
+  background-color: #45a049;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* Estilos para os elementos dentro da div de opções 'opcoesCabeamento' */
+#opcoesCabeamento select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesCabeamento label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.insta {
+  font-size: 10px;
+  margin-top: 1px;
+}
+
+/* Estilos para os elementos dentro da div de opções 'opcoesInstalacao' */
+#opcoesInstalacao select {
+  width: 50%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesInstalacao label {
+  font-weight: bold;
+  margin-bottom: 5px;
+
+}
+
+#extraInstalacaoFibra label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+#extraInstalacaoFibra div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+#extraInstalacaoFibra input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+#extraInstalacaoFibra div label {
+  font-weight: normal;
+  margin: 0;
+}
+
+
+
+/* Estilos para os elementos dentro da div de opções 'opcoesPersonalizavel' */
+#opcoesPersonalizavel select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesPersonalizavel label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Estilos para os elementos dentro da div de opções 'opcoesSemInternet' */
+#opcoesSemInternet select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesSemInternet label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Estilos para os elementos dentro da div de opções 'opcoesInternetLenta' */
+#opcoesInternetLenta select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesInternetLenta label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Estilos para os elementos dentro da div de opções 'opcoesInternetCaindo' */
+#opcoesInternetCaindo select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesInternetCaindo label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Estilos para os elementos dentro da div de opções 'opcoesSinalAlto' */
+#opcoesSinalAlto select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesSinalAlto label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Estilos para os elementos dentro da div de opções 'opcoesTvTacDefeito' */
+#opcoesTvTacDefeito select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 10px;
+}
+
+#opcoesTvTacDefeito label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+#textoGerado {
+  max-width: 600px;
+  /* Defina a largura máxima desejada */
+  overflow-x: auto;
+  /* Adiciona uma barra de rolagem horizontal se necessário */
+  margin: 10px 0;
+  /* Adiciona um pequeno espaçamento para melhorar a aparência */
+}
+
+.container textarea,
+.container2 textarea {
+  max-width: 100%;
+  /* Impede que o textarea ultrapasse o contêiner */
+  width: 100%;
+  /* Faz o textarea ocupar 100% do contêiner, sem passar dos limites */
+  resize: vertical;
+  /* Permite redimensionar apenas verticalmente */
+}
+
+strong {
+  color: green;
+}
+
+
+.grupo-radio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.grupo-radio input[type="radio"] {
+  width: auto;
+  margin: 0;
+  transform: scale(0.95);
+  cursor: pointer;
+}
+
+.grupo-radio label {
+  cursor: pointer;
+}
