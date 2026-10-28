@@ -231,10 +231,8 @@ function gerarTexto() {
   const divmac = obterValorElemento('mac1');
   const divsinal = obterValorElemento('sinal1');
   const divsinaltx = obterValorElemento('sinaltx');
-  const leds = obterValorElemento('leds');
   const extras = obterValorElemento('extras');
   const telefoneMk = obterValorElemento('telefone');
-  const modocontato = obterValorElemento('modocontato');
   const refMk = obterValorElemento('ref');
   const localMk = obterValorElemento('local');
 
