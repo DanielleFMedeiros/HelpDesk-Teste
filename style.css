@@ -599,3 +599,46 @@ body.modo-escuro .flex-container > .container {
   .dashboard-layout { grid-template-columns: minmax(0, 1fr); gap: 11px; }
   .dashboard-column { gap: 11px; }
 }
+
+/* Visual simples e direto para os geradores */
+.card-os, .card-atendimento {
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: none;
+  border-color: var(--hd-line);
+}
+.card-os:hover, .card-atendimento:hover { box-shadow: none; }
+.card-os h2, .card-atendimento h2 { margin-bottom: 5px; font-size: 16px; letter-spacing: 0; }
+.card-os > p, .card-atendimento > p { margin: 4px 0 8px; }
+.card-os .opcoes, .card-atendimento .opcoes {
+  margin: 7px 0;
+  padding: 8px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--hd-line);
+}
+.card-os .card, .card-atendimento .card {
+  margin: 7px 0;
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: none;
+}
+.card-os label, .card-atendimento label { margin: 7px 0 3px; font-weight: 500; }
+.card-os input:not([type="checkbox"]):not([type="radio"]),
+.card-os textarea, .card-os select,
+.card-atendimento input:not([type="checkbox"]):not([type="radio"]),
+.card-atendimento textarea, .card-atendimento select {
+  min-height: 34px;
+  margin: 3px 0 7px;
+  padding: 7px 9px;
+  border-radius: 6px;
+}
+.card-os button, .card-atendimento button {
+  padding: 7px 10px;
+  border-radius: 6px;
+  box-shadow: none;
+  transform: none;
+}
+.card-os button:hover, .card-atendimento button:hover { transform: none; }
+#textoGerado, #atendimento { margin-top: 8px; border: 1px solid var(--hd-line); border-radius: 6px; }
+body.modo-escuro .card-os .opcoes, body.modo-escuro .card-atendimento .opcoes { background: transparent; }
