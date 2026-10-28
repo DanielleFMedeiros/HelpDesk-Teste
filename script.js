@@ -174,7 +174,7 @@ function copiarTextoConversor() {
 
 //o.s
 
-const problemaSelect = document.getElementById('problemaSelect');
+let problemaSelect = null;
 
 function mostrarElemento(elemento) {
   if (elemento) {
@@ -220,7 +220,7 @@ function limitarTexto(texto, limite) {
 
 function gerarTexto() {
 
-  var valorElemento = obterValorElemento('idDoElemento');
+  // Campo genérico removido: não existe no HTML e não é necessário.
 
   /* sem */
   const regiaoMk = obterValorElemento('regiao');
@@ -660,6 +660,10 @@ function gerarTexto() {
 }
 
 function adicionarEventoProblema() {
+  if (!problemaSelect) {
+    console.error('Campo #problemaSelect não encontrado no HTML.');
+    return;
+  }
   problemaSelect.addEventListener('change', function () {
     // Oculta todas as opções
     esconderElemento(opcoesSemInternet);
@@ -815,11 +819,15 @@ function adicionarEventoProblema() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  problemaSelect = document.getElementById('problemaSelect');
+  problemaSelect2 = document.getElementById('problemaSelect2');
   adicionarEventoProblema();
+  configurarProblemaSelect2();
+  configurarCopiarAtendimento();
 
   // Adiciona o evento de clique para copiar o texto gerado
   const botaoCopiarTexto = document.getElementById('copiarTextoo');
-  botaoCopiarTexto.addEventListener('click', function () {
+  if (botaoCopiarTexto) botaoCopiarTexto.addEventListener('click', function () {
     // Obtém o texto gerado
     const textoGerado = document.getElementById('textoGerado').textContent;
 
@@ -848,7 +856,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // GERADOR DE ATENDIMENTO
 
-const problemaSelect2 = document.getElementById('problemaSelect2');
+let problemaSelect2 = null;
 
 function mostrarElemento2(elemento2) {
   if (elemento2) {
@@ -994,11 +1002,18 @@ function gerarA() {
     );
   };
 
-  document.getElementById('copiarA').classList.remove('hidden');
-  document.getElementById('atendimento').textContent = textoGerado2;
+  const botaoCopiar = document.getElementById('copiarA');
+  if (botaoCopiar) botaoCopiar.classList.remove('hidden');
+  const campoAtendimento = document.getElementById('atendimento');
+  if (campoAtendimento) campoAtendimento.textContent = textoGerado2;
 }
 
-problemaSelect2.addEventListener('change', function () {
+function configurarProblemaSelect2() {
+  if (!problemaSelect2) {
+    console.error('Campo #problemaSelect2 não encontrado no HTML.');
+    return;
+  }
+  problemaSelect2.addEventListener('change', function () {
 
   const problema = this.value;
 
@@ -1042,9 +1057,16 @@ problemaSelect2.addEventListener('change', function () {
     document.getElementById('divrelatocliente2').classList.remove('hidden');
     document.getElementById('divplus2').classList.remove('hidden');
   }
-});
+  });
+}
 
-document.getElementById('copiarA').addEventListener('click', function () {
+function configurarCopiarAtendimento() {
+  const botaoCopiarAtendimento = document.getElementById('copiarA');
+  if (!botaoCopiarAtendimento) {
+    console.error('Botão #copiarA não encontrado no HTML.');
+    return;
+  }
+  botaoCopiarAtendimento.addEventListener('click', function () {
   const texto = document.getElementById('atendimento').textContent;
 
   navigator.clipboard.writeText(texto)
@@ -1054,7 +1076,8 @@ document.getElementById('copiarA').addEventListener('click', function () {
     .catch(err => {
       console.error('Erro ao copiar:', err);
     });
-});
+  });
+}
 
 
 function aplicarTema(modoEscuro) {
