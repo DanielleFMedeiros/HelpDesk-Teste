@@ -1,37 +1,43 @@
-function formatarCpf() {
-  let cpfEntrada = document.getElementById("cpfInput").value;
-  let cpfApenasNumeros = cpfEntrada.replace(/\D/g, '');
 
-  if (/^\d{11}$/.test(cpfApenasNumeros)) {
-    let cpfFormatado = cpfApenasNumeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-    document.getElementById("cpfResultado").textContent = cpfFormatado;
-    document.getElementById("botaoCopiarCPF").style.display = "inline-block";
-  } else {
-    document.getElementById("cpfResultado").textContent = "Por favor, digite um CPF válido com 11 dígitos.";
-    document.getElementById("botaoCopiarCPF").style.display = "none";
-  }
-}
-function copiarResultadoCPF() {
-  let resultadoCPF = document.getElementById("cpfResultado").textContent;
-  copiarParaAreaTransferencia(resultadoCPF);
+function formatadorDoc() {
+    const docEntrada = document.getElementById("docInput").value;
+    const docNumeros = docEntrada.replace(/\D/g, "");
+
+    const resultado = document.getElementById("docResultado");
+    const botaoCopiar = document.getElementById("botaoCopiarDoc");
+
+    if (docNumeros.length === 11) {
+        // Formata como CPF
+        resultado.textContent = docNumeros.replace(
+            /(\d{3})(\d{3})(\d{3})(\d{2})/,
+            "$1.$2.$3-$4"
+        );
+
+        botaoCopiar.style.display = "inline-block";
+
+    } else if (docNumeros.length === 14) {
+        // Formata como CNPJ
+        resultado.textContent = docNumeros.replace(
+            /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+            "$1.$2.$3/$4-$5"
+        );
+
+        botaoCopiar.style.display = "inline-block";
+
+    } else {
+        resultado.textContent =
+            "Digite um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
+
+        botaoCopiar.style.display = "none";
+    }
 }
 
-function formatarCnpj() {
-  let cnpjEntrada = document.getElementById("cnpjInput").value;
-  let cnpjApenasNumeros = cnpjEntrada.replace(/\D/g, '');
+function copiarResultado() {
+    const resultado = document.getElementById("docResultado").textContent;
 
-  if (/^\d{14}$/.test(cnpjApenasNumeros)) {
-    let cnpjFormatado = cnpjApenasNumeros.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-    document.getElementById("cnpjResultado").textContent = cnpjFormatado;
-    document.getElementById("botaoCopiarCNPJ").style.display = "inline-block";
-  } else {
-    document.getElementById("cnpjResultado").textContent = "Por favor, digite um CNPJ válido com 14 dígitos.";
-    document.getElementById("botaoCopiarCNPJ").style.display = "none";
-  }
-}
-function copiarResultadoCnpj() {
-  let resultadoCNPJ = document.getElementById("cnpjResultado").textContent;
-  copiarParaAreaTransferencia(resultadoCNPJ);
+    if (resultado) {
+        copiarParaAreaTransferencia(resultado);
+    }
 }
 
 function abrirLink() {
