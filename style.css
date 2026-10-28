@@ -775,3 +775,41 @@ body.modo-escuro .card-os textarea,
 body.modo-escuro .card-atendimento input:not([type="checkbox"]):not([type="radio"]),
 body.modo-escuro .card-atendimento select,
 body.modo-escuro .card-atendimento textarea { border-color: var(--hd-line); }
+
+
+/* Ajuste fino: reduzir espaços verticais nos formulários */
+.card-os,
+.card-atendimento {
+  padding: 9px;
+  margin: 3px 0;
+}
+.card-os > p,
+.card-atendimento > p { margin-bottom: 4px; }
+.card-os form > div,
+.card-atendimento form > div { margin-top: 1px; margin-bottom: 0; }
+.card-os label,
+.card-atendimento label { margin: 2px 0 1px; line-height: 1.2; }
+.card-os input:not([type="checkbox"]):not([type="radio"]),
+.card-os select,
+.card-os textarea,
+.card-atendimento input:not([type="checkbox"]):not([type="radio"]),
+.card-atendimento select,
+.card-atendimento textarea {
+  min-height: 27px;
+  margin: 1px 0 3px;
+  padding: 4px 6px;
+}
+.card-os textarea,
+.card-atendimento textarea { min-height: 46px; }
+.card-os .opcoes,
+.card-atendimento .opcoes { margin: 2px 0; }
+.card-os .card,
+.card-atendimento .card { margin: 2px 0; padding: 3px 0; }
+.card-os .grupo-radio,
+.card-atendimento .grupo-radio { margin: 1px 0; }
+.card-os .grupo-radio label,
+.card-atendimento .grupo-radio label { margin: 1px 0; }
+.card-os button,
+.card-atendimento button { min-height: 27px; margin: 2px 3px 2px 0; padding: 5px 8px; }
+.card-os #textoGerado,
+.card-atendimento #atendimento { margin-top: 3px; padding: 6px; }
