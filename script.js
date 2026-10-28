@@ -1068,3 +1068,35 @@ document.getElementById('copiarA').addEventListener('click', function () {
       console.error('Erro ao copiar:', err);
     });
 });
+
+
+function aplicarTema(modoEscuro) {
+    document.body.classList.toggle("modo-escuro", modoEscuro);
+
+    const botao = document.getElementById("botaoTema");
+
+    if (botao) {
+        botao.textContent = modoEscuro
+            ? "☀️ Modo claro"
+            : "🌙 Modo escuro";
+    }
+}
+
+function alternarTema() {
+    const modoEscuro =
+        !document.body.classList.contains("modo-escuro");
+
+    aplicarTema(modoEscuro);
+
+    localStorage.setItem(
+        "temaHelpDesk",
+        modoEscuro ? "escuro" : "claro"
+    );
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const temaSalvo = localStorage.getItem("temaHelpDesk");
+
+    aplicarTema(temaSalvo === "escuro");
+});
+
