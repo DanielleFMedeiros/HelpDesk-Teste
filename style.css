@@ -813,3 +813,26 @@ body.modo-escuro .card-atendimento textarea { border-color: var(--hd-line); }
 .card-atendimento button { min-height: 27px; margin: 2px 3px 2px 0; padding: 5px 8px; }
 .card-os #textoGerado,
 .card-atendimento #atendimento { margin-top: 3px; padding: 6px; }
+
+
+/* Alinhamento dos checkboxes e seus textos nos formulários */
+.card-os div:has(> input[type="checkbox"]) ,
+.card-atendimento div:has(> input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 0;
+}
+.card-os div:has(> input[type="checkbox"]) > input[type="checkbox"],
+.card-atendimento div:has(> input[type="checkbox"]) > input[type="checkbox"] {
+  flex: 0 0 auto;
+  margin: 0;
+  vertical-align: middle;
+}
+.card-os div:has(> input[type="checkbox"]) > label,
+.card-atendimento div:has(> input[type="checkbox"]) > label {
+  display: inline;
+  margin: 0;
+  line-height: 1.3;
+  cursor: pointer;
+}
