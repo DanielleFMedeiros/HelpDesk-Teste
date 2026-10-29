@@ -1214,6 +1214,75 @@ const guiaFluxos = {
     }
   }
 };
+
+
+/* COMPLEMENTO DO GUIA DE DIAGNÓSTICO */
+
+/* 1. Falta de internet: verificar alimentação antes dos LEDs */
+guiaFluxos.semInternet.inicio = "energia";
+
+guiaFluxos.semInternet.etapas.energia = {
+  q: "A ONU está com alguma luz acesa?",
+  help: "Se todas as luzes estiverem apagadas, investigue primeiro a alimentação elétrica. Não manipule a fibra óptica.",
+  opts: [
+    ["Sim, há luzes acesas", "ONU apresenta luzes acesas", "los"],
+    ["Não, todas estão apagadas", "Todas as luzes da ONU apagadas", "fimEnergia"],
+    ["Não foi possível verificar", "Estado das luzes não verificado", "fimNaoVerificado"]
+  ]
+};
+
+guiaFluxos.semInternet.finais.fimEnergia = [
+  "Verificar alimentação elétrica da ONU",
+  "Orientar a verificar, com segurança, se a tomada está funcionando; se possível, testar outro aparelho na tomada. Conferir se a fonte está corretamente conectada à tomada e à ONU. Verificar na etiqueta se a tensão e a corrente da fonte são compatíveis com as especificações do equipamento. Se estiver usando adaptador ou extensão, testar diretamente em uma tomada adequada, quando for seguro. Não utilizar fonte incompatível nem abrir o equipamento. Depois, verificar se as luzes voltaram. Se continuar apagada ou o cliente não conseguir realizar as verificações, registrar o resultado e seguir o fluxo interno de suporte/O.S."
+];
+
+/* 2. Huawei AX3S: conferência manual apenas nos casos pertinentes */
+
+/* Encaminha para a conferência do roteador quando o teste
+   indicar possível problema restrito ao Wi-Fi. */
+guiaFluxos.lenta.etapas.umDisp.opts[0][2] = "ax3s";
+
+/* Se o teste cabeado estiver adequado, também permite conferir
+   o Wi-Fi antes de concluir o diagnóstico. */
+guiaFluxos.lenta.etapas.resultadoCabo.opts[0][2] = "ax3s";
+
+guiaFluxos.lenta.etapas.ax3s = {
+  q: "O roteador utilizado pelo cliente é um Huawei AX3S?",
+  help: "A conferência abaixo é específica para esse modelo. Não altere configurações automaticamente.",
+  opts: [
+    ["Sim, é um Huawei AX3S", "Roteador Huawei AX3S", "ax3sConfig"],
+    ["Não, é outro modelo", "Roteador diferente do Huawei AX3S", "fimWifi"],
+    ["Não foi possível confirmar", "Modelo do roteador não confirmado", "fimAX3SNaoVerificado"]
+  ]
+};
+
+guiaFluxos.lenta.etapas.ax3sConfig = {
+  q: "Como estão as configurações do Huawei AX3S?",
+  help: "Conferir manualmente no sistema autorizado: firmware SP3; 2,4 GHz em largura automática 20/40 MHz; 5 GHz fixa em 80 MHz; DHCPv6; IPv6 ativo por padrão; TR-069 configurado no ACS; redes de 2,4 e 5 GHz unificadas por padrão.",
+  opts: [
+    ["Configurações conferidas e conforme o padrão", "AX3S conferido conforme o padrão informado", "fimWifi"],
+    ["Há divergência com justificativa registrada", "AX3S com divergência documentada", "fimAX3SDocumentada"],
+    ["Há divergência sem justificativa localizada", "AX3S com divergência sem justificativa localizada", "fimAX3SRevisar"],
+    ["Não foi possível conferir tudo", "Conferência do AX3S incompleta", "fimAX3SNaoVerificado"]
+  ]
+};
+
+guiaFluxos.lenta.finais.fimAX3SDocumentada = [
+  "Configuração diferente com justificativa registrada",
+  "Localizar a anotação técnica ou o fechamento da O.S. que justifica a configuração. Confirmar se a justificativa continua válida antes de qualquer alteração. Registrar a conferência e seguir o procedimento interno."
+];
+
+guiaFluxos.lenta.finais.fimAX3SRevisar = [
+  "Revisar configuração do Huawei AX3S",
+  "Registrar qual configuração diverge do padrão. Verificar o histórico de atendimentos e as O.S. para localizar uma justificativa técnica. Se não houver registro, consultar o procedimento interno ou a equipe responsável antes de alterar qualquer parâmetro."
+];
+
+guiaFluxos.lenta.finais.fimAX3SNaoVerificado = [
+  "Conferência do Huawei AX3S pendente",
+  "Registrar quais itens não puderam ser conferidos e continuar o diagnóstico de Wi-Fi com os testes disponíveis. Não presumir que uma configuração está incorreta nem realizar alterações sem validação."
+];
+
+
 let guiaEstado={tipo:"",etapa:"",respostas:[],pilha:[]};
 function iniciarGuiaDiagnostico(){
  const tipo=document.getElementById("guiaTipoProblema").value;
