@@ -1119,3 +1119,146 @@ document.addEventListener("DOMContentLoaded", function () {
 
     aplicarTema(temaSalvo === "escuro");
 });
+
+
+
+/* Guia interativo de diagnóstico — baseado no TREINAMENTO SUPORTE E TÉCNICO 2025.
+   As respostas permanecem apenas nesta tela; não são salvas nem enviadas. */
+const guiaFluxos = {
+  semInternet: {
+    titulo: "Sem internet", inicio: "los",
+    etapas: {
+      los: { q:"A ONU apresenta LOS vermelho ou piscando vermelho?", help:"Os nomes e comportamentos dos LEDs podem variar conforme o modelo.", opts:[
+        ["Sim","Sim","coletivo"],["Não","Não","pon"],["Não foi possível verificar","Não verificado","fimNaoVerificado"]] },
+      coletivo: { q:"Há outros clientes da mesma região relatando falta de conexão?", help:"Confira os registros internos antes de classificar como falha coletiva.", opts:[
+        ["Sim, há outros clientes","Há outros clientes afetados","fimColetivo"],["Não, aparentemente só este cliente","Aparentemente apenas este cliente","fimIndividual"],["Ainda não verificado","Abrangência coletiva não verificada","fimChecarColetivo"]] },
+      pon: { q:"Como está o LED PON da ONU?", help:"No treinamento, PON fixo indica registro; piscando persistentemente pode indicar falha de registro/autenticação; apagado pode indicar ausência de registro ou sinal.", opts:[
+        ["Aceso fixo","PON aceso fixo","cabos"],["Piscando ou apagado","PON piscando ou apagado","fimPon"],["Não foi possível verificar","PON não verificado","fimNaoVerificado"]] },
+      cabos: { q:"O roteador está ligado e os cabos de energia e WAN estão conectados corretamente?", help:"Verifique visualmente conexões acessíveis. Não oriente o cliente a manusear fibra ou conectores ópticos delicados.", opts:[
+        ["Sim, tudo conectado e ligado","Equipamentos ligados e cabos conectados","fimAutenticacao"],["Foi encontrado cabo solto ou equipamento desligado","Conexão/energia solta ou equipamento desligado","fimReconectar"],["Não foi possível confirmar","Conexões não confirmadas","fimNaoVerificado"]] }
+    },
+    finais: {
+      fimColetivo:["Possível falha coletiva","Consultar registros internos e seguir o procedimento da empresa para ocorrência coletiva. Registrar região, horário de início e evidências."],
+      fimIndividual:["Possível falha óptica individual","Seguir o procedimento interno para falha óptica e avaliar abertura de O.S. Registrar estado do LOS e níveis RX/TX disponíveis."],
+      fimChecarColetivo:["Verificação pendente","Consultar ocorrências da região antes de classificar o caso. Se persistir LOS vermelho, seguir o procedimento interno e avaliar O.S."],
+      fimPon:["Possível falha de sinal ou registro","Registrar o estado do PON e seguir o procedimento interno de verificação óptica/provisionamento. Se não normalizar, encaminhar para análise técnica ou abrir O.S. conforme o fluxo da empresa."],
+      fimAutenticacao:["Verificações físicas básicas concluídas","Se o sinal óptico estiver normal, verificar no sistema autorizado o estado da conexão, WAN/autenticação e eventual provisionamento. Reiniciar equipamento somente conforme o procedimento aprovado; se persistir, encaminhar para análise técnica/O.S."],
+      fimReconectar:["Conexão física ajustada","Validar se a conexão retornou após ajustar apenas conexões acessíveis e seguras. Se não retornar, continuar o diagnóstico conforme os LEDs e o procedimento interno."],
+      fimNaoVerificado:["Diagnóstico incompleto","Confirmar os LEDs e as conexões que possam ser verificadas com segurança. Se o cliente não conseguir verificar ou o caso exigir visita, registrar essa limitação e seguir o fluxo de suporte/O.S."]
+    }
+  },
+  lenta: {
+    titulo:"Internet lenta / velocidade baixa", inicio:"abrangencia",
+    etapas:{
+      abrangencia:{q:"A lentidão acontece em um único dispositivo ou em vários?",opts:[
+        ["Só em um dispositivo","Somente um dispositivo","umDisp"],["Em vários dispositivos","Vários dispositivos","testeCabo"],["Não foi possível confirmar","Abrangência não confirmada","fimMaisDados"]]},
+      umDisp:{q:"No dispositivo afetado, a lentidão acontece também por cabo de rede (se possível)?",opts:[
+        ["Só no Wi-Fi / por cabo funciona melhor","Problema parece restrito ao Wi-Fi","fimWifi"],["Também fica lento por cabo","Lentidão também ocorre por cabo","fimDispCabo"],["Não foi possível testar por cabo","Teste por cabo não realizado","fimMaisDados"]]},
+      testeCabo:{q:"Foi feito teste por cabo, com um único dispositivo e sem downloads ou vídeos em segundo plano?",help:"O treinamento recomenda teste cabeado e sem tráfego concorrente para separar Wi-Fi de conexão.",opts:[
+        ["Sim, teste cabeado realizado","Teste cabeado realizado","resultadoCabo"],["Não, ainda não","Teste cabeado pendente","fimTestePendente"]]},
+      resultadoCabo:{q:"Qual foi o resultado do teste por cabo?",opts:[
+        ["Velocidade adequada por cabo","Velocidade adequada por cabo","fimWifi"],["Velocidade baixa também por cabo","Velocidade baixa também por cabo","fimCaboLento"],["Resultado inconclusivo","Teste inconclusivo","fimMaisDados"]]}
+    },
+    finais:{
+      fimWifi:["Indício de problema no Wi-Fi","Verificar distância, obstáculos, interferência, dispositivo e quantidade de equipamentos conectados. Registrar se o cabo apresenta desempenho normal."],
+      fimDispCabo:["Investigar o dispositivo","Como o problema aparece em um dispositivo, investigar limitações do equipamento, placa de rede, configuração e tráfego local. Comparar com outro dispositivo antes de concluir falha da conexão."],
+      fimCaboLento:["Investigar conexão cabeada","Confirmar teste com um único dispositivo e sem tráfego em segundo plano. Verificar se a placa/porta Ethernet negocia apenas 100 Mbps e seguir as verificações internas de sinal/rede; escalar se necessário."],
+      fimTestePendente:["Teste adicional recomendado","Realizar teste por cabo, com um único dispositivo e sem tráfego em segundo plano. Se não for possível, registrar o tipo de conexão usada e as limitações do teste."],
+      fimMaisDados:["Coletar mais informações","Confirmar quantos dispositivos são afetados e realizar teste controlado, preferencialmente por cabo. Registrar horário, plano, modelo do roteador e resultado."]
+    }
+  },
+  quedas:{
+    titulo:"Internet caindo / oscilando",inicio:"escopo",
+    etapas:{
+      escopo:{q:"As quedas afetam todos os dispositivos ou somente um?",opts:[
+        ["Todos ou vários dispositivos","Quedas em vários dispositivos","historico"],["Somente um dispositivo","Quedas em um dispositivo","fimUmDisp"],["Não foi possível confirmar","Abrangência não confirmada","fimColetar"]]},
+      historico:{q:"O histórico/registro interno mostra eventos de queda nos horários relatados?",opts:[
+        ["Sim","Há eventos no histórico","verificacoes"],["Não","Não há eventos identificados","verificacoes"],["Não consultei / não disponível","Histórico não verificado","fimColetar"]]},
+      verificacoes:{q:"Foram verificados energia, fonte, cabos/conectores acessíveis e níveis de sinal óptico no sistema?",opts:[
+        ["Sim, verificados","Energia, cabos e sinal verificados","fimEscalar"],["Ainda não","Verificações pendentes","fimVerificar"]]}
+    },
+    finais:{
+      fimUmDisp:["Investigar dispositivo ou Wi-Fi","Comparar com outros dispositivos e, se possível, testar por cabo. Registrar se a queda ocorre apenas nesse equipamento."],
+      fimColetar:["Coletar evidências das quedas","Anotar datas/horários e frequência, confirmar quantos dispositivos são afetados e consultar o histórico interno. Verificar energia, fonte, cabos, sinal óptico e possível conflito de IP conforme os procedimentos autorizados."],
+      fimEscalar:["Quedas persistentes após verificações","Registrar horários, eventos encontrados, estado dos cabos/fonte e níveis ópticos. Encaminhar para análise técnica/engenharia com as evidências conforme o fluxo interno."],
+      fimVerificar:["Verificações ainda pendentes","Conferir fonte, energia, cabos/conectores acessíveis, níveis ópticos e histórico. Se continuar, encaminhar com datas/horários e evidências; considerar possível conflito de IP conforme procedimento interno."]
+    }
+  },
+  servico:{
+    titulo:"Site, aplicativo ou e-mail específico",inicio:"escopo",
+    etapas:{
+      escopo:{q:"A falha acontece somente em um site, aplicativo ou serviço?",opts:[
+        ["Sim, somente um serviço","Falha em um serviço específico","teste"],["Vários serviços também falham","Falha em vários serviços","fimGeral"],["Não foi possível confirmar","Abrangência não confirmada","fimDados"]]},
+      teste:{q:"O serviço foi testado em outro dispositivo/rede e no computador de suporte, quando disponível?",opts:[
+        ["Sim, o problema foi confirmado","Problema confirmado em testes","fimFerramentas"],["Não, ainda não","Testes comparativos pendentes","fimTeste"]]}
+    },
+    finais:{
+      fimGeral:["Investigar conectividade geral","Confirmar se há internet e se os LEDs estão normais. Se houver falha geral, seguir o fluxo de 'Sem internet' ou 'Internet lenta/caindo', conforme os sintomas."],
+      fimDados:["Confirmar o escopo da falha","Anotar URL/nome do serviço, mensagem de erro, horário e dispositivos afetados. Comparar com outro dispositivo ou rede, se possível."],
+      fimFerramentas:["Análise de serviço, rota ou DNS","Conforme ferramentas autorizadas, consultar Downdetector, testar no computador de suporte e comparar ping/traceroute ou DNS/rota no ISPTools. Se a política permitir teste temporário de firewall/antivírus, reative a proteção imediatamente. Encaminhar à engenharia com URL, IP público, horário, resultados e capturas/logs disponíveis."],
+      fimTeste:["Realizar testes comparativos","Testar em outro dispositivo/rede e no computador de suporte, quando disponível. Registrar URL, erro, horário e resultados antes de escalar."]
+    }
+  },
+  telefone:{
+    titulo:"Telefone / VoIP",inicio:"sintoma",
+    etapas:{
+      sintoma:{q:"Qual é o sintoma principal da linha?",opts:[
+        ["Linha com status ERRO / não registra","Linha com erro ou sem registro","redeAta"],["Chiado / ruído na ligação","Chiado ou ruído","fimChiado"],["Outro sintoma","Outro sintoma de telefonia","fimTelefone"]]},
+      redeAta:{q:"O ATA está ligado a roteador adicional/switch ou pode ser testado diretamente no roteador principal?",opts:[
+        ["Há equipamento adicional","Há roteador adicional ou switch","fimAta"],["Pode testar diretamente no roteador principal","Pode testar ATA direto no roteador principal","fimAta"],["Não foi possível confirmar","Estrutura da rede não confirmada","fimTelefone"]]}
+    },
+    finais:{
+      fimChiado:["Verificações para chiado","Confirmar plano/minutos ativos, inspecionar cabo RJ11 e testar outro cabo ou aparelho, se disponível. O treinamento cita VAD como possibilidade se persistir, conforme procedimento interno."],
+      fimTelefone:["Coletar dados da linha","Registrar sintoma, status da linha no sistema, modelo do ATA, estrutura da rede e testes já realizados. Encaminhar conforme fluxo interno."],
+      fimAta:["Diagnóstico de registro VoIP","Confirmar estrutura de rede e, se possível, testar o ATA diretamente no roteador principal. Testar a linha pelo Microsip quando disponível. Aplicar STUN somente quando o status estiver 'ERRO' e conforme procedimento documentado; se persistir, escalar com os testes realizados."]
+    }
+  }
+};
+let guiaEstado={tipo:"",etapa:"",respostas:[],pilha:[]};
+function iniciarGuiaDiagnostico(){
+ const tipo=document.getElementById("guiaTipoProblema").value;
+ if(!tipo||!guiaFluxos[tipo]){alert("Selecione o problema para iniciar o diagnóstico.");return;}
+ guiaEstado={tipo,etapa:guiaFluxos[tipo].inicio,respostas:[],pilha:[]};
+ document.getElementById("guiaIntro").classList.add("hidden");
+ document.getElementById("guiaResultado").classList.add("hidden");
+ document.getElementById("guiaEtapa").classList.remove("hidden");
+ renderizarEtapaGuia();
+}
+function renderizarEtapaGuia(){
+ const fluxo=guiaFluxos[guiaEstado.tipo],dados=fluxo.etapas[guiaEstado.etapa],painel=document.getElementById("guiaEtapa");
+ if(!dados){reiniciarGuiaDiagnostico();return;}
+ painel.innerHTML=`<div class="guia-progresso">Diagnóstico: ${fluxo.titulo}</div><h3>${dados.q}</h3>${dados.help?`<p class="guia-ajuda">${dados.help}</p>`:""}<div class="guia-opcoes">${dados.opts.map((o,i)=>`<button type="button" class="guia-opcao" data-opcao="${i}">${o[0]}</button>`).join("")}</div><div class="guia-acoes"><button type="button" class="guia-secundario" id="guiaVoltar">Voltar</button><button type="button" class="guia-secundario" onclick="reiniciarGuiaDiagnostico()">Reiniciar</button></div>`;
+ painel.querySelectorAll("[data-opcao]").forEach(b=>b.addEventListener("click",()=>{
+   const o=dados.opts[Number(b.dataset.opcao)];
+   guiaEstado.pilha.push(guiaEstado.etapa);
+   guiaEstado.respostas.push({pergunta:dados.q,resposta:o[1]});
+   if(fluxo.finais[o[2]]) finalizarGuiaDiagnostico(o[2]);
+   else {guiaEstado.etapa=o[2];renderizarEtapaGuia();}
+ }));
+ document.getElementById("guiaVoltar").addEventListener("click",voltarGuiaDiagnostico);
+}
+function finalizarGuiaDiagnostico(chave){
+ const fluxo=guiaFluxos[guiaEstado.tipo],final=fluxo.finais[chave]||["Encaminhar para avaliação","Registrar as verificações realizadas e seguir o fluxo interno de suporte."];
+ document.getElementById("guiaEtapa").classList.add("hidden");
+ const resultado=document.getElementById("guiaResultado");resultado.classList.remove("hidden");
+ const lista=guiaEstado.respostas.map((r,i)=>`${i+1}. ${r.pergunta}\n   Resposta: ${r.resposta}`).join("\n");
+ resultado.innerHTML=`<div class="guia-progresso">Resumo do diagnóstico</div><h3>${final[0]}</h3><p>${final[1]}</p><label for="guiaResumoFinal">Resumo para registro (revise antes de copiar):</label><textarea id="guiaResumoFinal" rows="9"></textarea><div class="guia-acoes"><button type="button" onclick="copiarResumoGuia()">📋 Copiar resumo</button><button type="button" class="guia-secundario" onclick="reiniciarGuiaDiagnostico()">Novo diagnóstico</button></div><p class="guia-aviso">Orientações baseadas no treinamento interno fornecido. Confirme os procedimentos vigentes antes de executar ações em equipamentos ou sistemas.</p>`;
+ document.getElementById("guiaResumoFinal").value=`PROBLEMA: ${fluxo.titulo}\n\nVERIFICAÇÕES E RESPOSTAS:\n${lista||"Nenhuma resposta registrada."}\n\nCONCLUSÃO: ${final[0]}\nPRÓXIMOS PASSOS: ${final[1]}`;
+}
+function copiarResumoGuia(){
+ const campo=document.getElementById("guiaResumoFinal");campo.select();campo.setSelectionRange(0,campo.value.length);
+ if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(campo.value).then(()=>alert("Resumo copiado!")).catch(()=>{document.execCommand("copy");alert("Resumo copiado!");});
+ else {document.execCommand("copy");alert("Resumo copiado!");}
+}
+function voltarGuiaDiagnostico(){
+ if(!guiaEstado.pilha.length){reiniciarGuiaDiagnostico();return;}
+ guiaEstado.respostas.pop();guiaEstado.etapa=guiaEstado.pilha.pop();renderizarEtapaGuia();
+}
+function reiniciarGuiaDiagnostico(){
+ guiaEstado={tipo:"",etapa:"",respostas:[],pilha:[]};
+ document.getElementById("guiaTipoProblema").value="";
+ document.getElementById("guiaIntro").classList.remove("hidden");
+ document.getElementById("guiaEtapa").classList.add("hidden");
+ document.getElementById("guiaResultado").classList.add("hidden");
+}
+
