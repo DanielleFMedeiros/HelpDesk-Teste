@@ -839,95 +839,76 @@ body.modo-escuro .card-atendimento textarea { border-color: var(--hd-line); }
 
 
 
-/* GUIA INTERATIVO DE DIAGNÓSTICO */
-.card-guia-diagnostico { border-left: 4px solid #4CAF50; }
-.card-guia-diagnostico h2 { margin-top: 0; }
-.card-guia-diagnostico p { line-height: 1.45; }
-.card-guia-diagnostico select { display:block; width:100%; max-width:520px; margin:7px 0 12px; padding:9px; border:1px solid #ccc; border-radius:5px; box-sizing:border-box; }
-.card-guia-diagnostico button { width:auto; min-width:150px; max-width:100%; margin:5px 7px 5px 0; padding:9px 12px; }
-.guia-progresso { display:inline-block; margin:8px 0; padding:5px 9px; border-radius:12px; background:#e7f5e8; color:#246b2b; font-weight:bold; }
-.guia-opcoes { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; }
-.card-guia-diagnostico .guia-opcao { background:#f6f7f6; color:#222; border:1px solid #cfd8cf; text-align:left; width:auto; }
-.card-guia-diagnostico .guia-opcao:hover { background:#e7f5e8; }
-.guia-ajuda { padding:9px 11px; border-left:3px solid #9e9e9e; background:rgba(128,128,128,.08); }
-.guia-acoes { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
-.card-guia-diagnostico .guia-secundario { background:#666; }
-.card-guia-diagnostico textarea { display:block; min-height:150px; width:100%; margin:8px 0; padding:10px; box-sizing:border-box; font:inherit; }
-.guia-aviso { color:#666; font-size:11px; }
-body.modo-escuro .guia-progresso { background:#263d29; color:#b8efbd; }
-body.modo-escuro .card-guia-diagnostico .guia-opcao { background:#333; color:#fff; border-color:#666; }
-body.modo-escuro .card-guia-diagnostico .guia-opcao:hover { background:#29422c; }
-body.modo-escuro .guia-aviso { color:#ccc; }
-@media(max-width:600px) { .card-guia-diagnostico button { width:100%; margin-right:0; } .guia-opcoes { flex-direction:column; } }
-
-
-/* GUIA DE DIAGNÓSTICO — AJUSTE COMPACTO */
+/* GUIA INTERATIVO DE DIAGNÓSTICO — layout compacto */
 .card-guia-diagnostico {
-  width: min(100%, 1050px);
-  margin: 0 auto 16px;
-  padding: 14px 18px;
-  border-left: 4px solid var(--hd-green);
+  border-left: 4px solid #4CAF50;
+  max-width: 1180px;
+  margin: 10px auto 16px;
+  padding: 15px 18px;
 }
-
-.card-guia-diagnostico h2 {
-  margin-bottom: 5px;
+.card-guia-diagnostico h2 { margin: 0 0 6px; }
+.card-guia-diagnostico p { line-height: 1.35; margin: 6px 0 10px; }
+#guiaIntro {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto;
+  align-items: end;
+  gap: 6px 12px;
 }
-
-.card-guia-diagnostico > p {
-  margin: 4px 0 8px;
+#guiaIntro label { grid-column: 1 / -1; margin: 0; }
+.card-guia-diagnostico select {
+  display: block; width: 100%; max-width: none; margin: 0;
+  padding: 8px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;
 }
-
-.card-guia-diagnostico h3 {
-  margin: 8px 0;
-  font-size: 14px;
-  line-height: 1.4;
+.card-guia-diagnostico button {
+  width: auto; min-width: 130px; max-width: 100%;
+  margin: 3px 5px 3px 0; padding: 8px 11px;
 }
-
-.card-guia-diagnostico .guia-progresso {
-  margin: 4px 0 8px;
-  font-size: 11px;
+#guiaEtapa {
+  display: grid;
+  grid-template-columns: minmax(220px, .85fr) minmax(300px, 1.15fr);
+  column-gap: 22px;
+  align-items: start;
 }
-
-.card-guia-diagnostico .guia-opcoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin: 8px 0;
+#guiaEtapa > .guia-progresso,
+#guiaEtapa > .guia-acoes { grid-column: 1 / -1; }
+#guiaEtapa > h3 { margin: 5px 0 8px; }
+#guiaEtapa > .guia-ajuda { grid-column: 1; }
+.guia-progresso {
+  display: inline-block; justify-self: start; margin: 4px 0 8px;
+  padding: 5px 9px; border-radius: 12px;
+  background: #e7f5e8; color: #246b2b; font-weight: bold;
 }
-
+.guia-opcoes {
+  grid-column: 2; grid-row: 2 / span 2;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px; margin: 4px 0 8px;
+}
 .card-guia-diagnostico .guia-opcao {
-  flex: 0 1 auto;
-  min-width: 130px;
-  padding: 8px 11px;
-  text-align: left;
+  background: #f6f7f6; color: #222; border: 1px solid #cfd8cf;
+  text-align: left; width: 100%; min-width: 0; margin: 0;
 }
-
-.card-guia-diagnostico .guia-ajuda {
-  margin: 7px 0;
-  padding: 7px 10px;
-  font-size: 12px;
+.card-guia-diagnostico .guia-opcao:hover { background: #e7f5e8; }
+.guia-ajuda {
+  padding: 8px 10px; border-left: 3px solid #9e9e9e;
+  background: rgba(128,128,128,.08);
 }
-
-.card-guia-diagnostico .guia-acoes {
-  gap: 6px;
-  margin-top: 8px;
-}
-
+.guia-acoes { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.card-guia-diagnostico .guia-secundario { background: #666; }
+#guiaResultado { max-width: 850px; }
 .card-guia-diagnostico textarea {
-  min-height: 125px;
+  display: block; min-height: 95px; width: 100%;
+  margin: 6px 0; padding: 9px; box-sizing: border-box; font: inherit;
 }
-
-@media (max-width: 600px) {
-  .card-guia-diagnostico {
-    padding: 12px;
-  }
-
-  .card-guia-diagnostico .guia-opcoes {
-    flex-direction: column;
-  }
-
-  .card-guia-diagnostico .guia-opcao {
-    width: 100%;
-  }
+.guia-aviso { color: #666; font-size: 11px; }
+body.modo-escuro .guia-progresso { background: #263d29; color: #b8efbd; }
+body.modo-escuro .card-guia-diagnostico .guia-opcao { background: #333; color: #fff; border-color: #666; }
+body.modo-escuro .card-guia-diagnostico .guia-opcao:hover { background: #29422c; }
+body.modo-escuro .guia-aviso { color: #ccc; }
+@media(max-width:700px) {
+  .card-guia-diagnostico { margin: 8px 5px 14px; padding: 13px; }
+  #guiaIntro, #guiaEtapa { display: block; }
+  #guiaIntro select { margin: 6px 0; }
+  .guia-opcoes { display: flex; flex-direction: column; margin: 8px 0; }
+  .card-guia-diagnostico button { width: 100%; margin: 4px 0; }
+  .guia-acoes { display: grid; grid-template-columns: 1fr 1fr; }
 }
-

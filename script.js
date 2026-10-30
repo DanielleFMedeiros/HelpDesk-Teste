@@ -243,6 +243,7 @@ function gerarTexto() {
   const divsinaltx = obterValorElemento('sinaltx');
   const extras = obterValorElemento('extras');
   const telefoneMk = obterValorElemento('telefone');
+  const modoContato = obterValorElemento('modoContato');
   const refMk = obterValorElemento('ref');
   const localMk = obterValorElemento('local');
 
@@ -259,6 +260,7 @@ function gerarTexto() {
   const extras6 = obterValorElemento('extras6');
   const osanterior = obterValorElemento('osanterior');
   const telefoneMk6 = obterValorElemento('telefone6');
+  const modoContato6 = obterValorElemento('modoContato6');
   const refMk6 = obterValorElemento('ref6');
   const localMk6 = obterValorElemento('local6');
 
@@ -269,9 +271,14 @@ function gerarTexto() {
   const procedimentoCompletoLento = obterValorElemento('procedimentoCompletoLento');
   const dispositivosDiv = obterValorElemento('dispositivos');
   const tvCabeadaDiv = obterValorElemento('tvCabeadaDiv');
-  const sinalDiv = obterValorElemento('sinal');
+  const planoLenta = obterValorElemento('planoLenta');
+  const roteadorLenta = obterValorElemento('roteadorLenta');
+  const macLenta = obterValorElemento('macLenta');
+  const sinalRXLenta = obterValorElemento('sinalRXLenta');
+  const sinalTXLenta = obterValorElemento('sinalTXLenta');
   const extras2 = obterValorElemento('extras2');
   const telefoneMk2 = obterValorElemento('telefone2');
+  const modoContato2 = obterValorElemento('modoContato2');
   const refMk2 = obterValorElemento('ref2');
   const localMk2 = obterValorElemento('local2');
 
@@ -283,9 +290,14 @@ function gerarTexto() {
   const quedas = obterValorElemento('quedas');
   const cabosConectadosDiv1 = obterValorElemento('cabosConectadosDiv1');
   const dispositivosDiv1 = obterValorElemento('dispositivos1');
-  const sinalDiv1 = obterValorElemento('sinalcaindo');
+  const planoCaindo = obterValorElemento('planoCaindo');
+  const roteadorCaindo = obterValorElemento('roteadorCaindo');
+  const macCaindo = obterValorElemento('macCaindo');
+  const sinalRXCaindo = obterValorElemento('sinalRXCaindo');
+  const sinalTXCaindo = obterValorElemento('sinalTXCaindo');
   const extras3 = obterValorElemento('extras3');
   const telefoneMk3 = obterValorElemento('telefone3');
+  const modoContato3 = obterValorElemento('modoContato3');
   const refMk3 = obterValorElemento('ref3');
   const localMk3 = obterValorElemento('local3');
 
@@ -294,9 +306,14 @@ function gerarTexto() {
   const horarioMk5 = obterValorElemento('horario5');
   const solicitanteMk5 = obterValorElemento('solicitante5');
   const quedas5 = obterValorElemento('quedas5');
-  const sinalDiv5 = obterValorElemento('sinal5');
+  const planoSinalAlto = obterValorElemento('planoSinalAlto');
+  const roteadorSinalAlto = obterValorElemento('roteadorSinalAlto');
+  const macSinalAlto = obterValorElemento('macSinalAlto');
+  const sinalRXSinalAlto = obterValorElemento('sinalRXSinalAlto');
+  const sinalTXSinalAlto = obterValorElemento('sinalTXSinalAlto');
   const extras5 = obterValorElemento('extras5');
   const telefoneMk5 = obterValorElemento('telefone5');
+  const modoContato5 = obterValorElemento('modoContato5');
   const refMk5 = obterValorElemento('ref5');
   const localMk5 = obterValorElemento('local5');
 
@@ -304,11 +321,17 @@ function gerarTexto() {
   const regiaoMk4 = obterValorElemento('regiao4');
   const horarioMk4 = obterValorElemento('horario4');
   const solicitanteMk4 = obterValorElemento('solicitante4');
+  const planoTv = obterValorElemento('planoTv');
+  const roteadorTv = obterValorElemento('roteadorTv');
+  const macTv = obterValorElemento('macTv');
+  const sinalRXTv = obterValorElemento('sinalRXTv');
+  const sinalTXTv = obterValorElemento('sinalTXTv');
   const procedimentoCompletoTv4 = obterValorElemento('procedimentoCompletoTv4');
   const cabosConectadosDiv4 = obterValorElemento('cabosConectadosDiv4');
   const minimiza = obterValorElemento('minimiza4');
   const extras4 = obterValorElemento('extras4');
   const telefoneMk4 = obterValorElemento('telefone4');
+  const modoContato4 = obterValorElemento('modoContato4');
   const refMk4 = obterValorElemento('ref4');
   const localMk4 = obterValorElemento('local4');
 
@@ -322,6 +345,7 @@ function gerarTexto() {
   const pagamentoMk = obterValorElemento('pagamento');
   const extras7 = obterValorElemento('extras7');
   const telefoneMk7 = obterValorElemento('telefone7');
+  const modoContato7 = obterValorElemento('modoContato7');
   const refMk7 = obterValorElemento('ref7');
   const localMk7 = obterValorElemento('local7');
 
@@ -338,6 +362,7 @@ function gerarTexto() {
   const clienteCiente = obterValorElemento('clienteCiente');
   const contrato = obterValorElemento('contrato');
   const telefoneMkComercial = obterValorElemento('telefoneComercial');
+  const modoContatoComercial = obterValorElemento('modoContatoComercial');
   const refMkComercial = obterValorElemento('refComercial');
   const localMkComercial = obterValorElemento('localComercial');
 
@@ -346,6 +371,7 @@ function gerarTexto() {
   let textoLocal = "";
   let texto = "";
   let telefone = "";
+  let textoComFormatacaoPropria = false;
 
   // Função para pegar os valores dos checkbox marcados
   function obterCheckBoxMarcados() {
@@ -361,17 +387,8 @@ function gerarTexto() {
     return valorMarcado;
   }
 
-  function obterModoContato() {
-    let checkboxes = document.querySelectorAll('.modocontato');
-    let modos = [];
-
-    checkboxes.forEach(function (checkbox) {
-      if (checkbox.checked) {
-        modos.push(checkbox.value);
-      }
-    });
-
-    return modos.join(', ');
+  function montarTelefoneContato(numero, modo) {
+    return numero + (modo ? ' - ' + modo : '');
   }
 
   function obterMorador() {
@@ -410,10 +427,7 @@ function gerarTexto() {
     texto += checkboxMarcado ? " " + checkboxMarcado + "." : "";
     texto += extras ? " " + extras + "." : "";
 
-    let divmodocontato = obterModoContato();
-    telefone = '\n' + telefoneMk +
-      (divmodocontato ? ' - ' + divmodocontato : '') +
-      '\n' + refMk;
+    telefone = '\n' + montarTelefoneContato(telefoneMk, modoContato) + '\n' + refMk;
     textoLocal = localMk;
     textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + '\n' + textoLocal;
   }
@@ -438,14 +452,22 @@ function gerarTexto() {
     }
 
 
-    telefone = '\n' + telefoneMk6 + '\n' + '\n' + refMk6 + '\n';
+    telefone = '\n' + montarTelefoneContato(telefoneMk6, modoContato6) + '\n' + '\n' + refMk6 + '\n';
     textoLocal = localMk6;
     textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + textoLocal;
   }
 
   //INTERNET LENTA
   if (problema === 'internetLenta') {
-    textoIntro = regiaoMk2 + " - INTERNET LENTA" + '\n' + "(" + horarioMk2 + ")" + '\n' + '\n' + "TRATADO COM: " + solicitanteMk2 + '\n' + '\n';
+    const infosLenta = [
+      planoLenta ? `PLANO: ${planoLenta}` : null,
+      roteadorLenta ? `MODELO DO ROTEADOR: ${roteadorLenta}` : null,
+      macLenta ? `MAC DA ONU: ${macLenta}` : null,
+      (sinalRXLenta || sinalTXLenta) ? `SINAL RX: ${sinalRXLenta} | SINAL TX: ${sinalTXLenta}` : null
+    ].filter(Boolean).join('\n');
+    textoIntro = regiaoMk2 + " - INTERNET LENTA" + '\n' + "(" + horarioMk2 + ")" + '\n\n' +
+      "TRATADO COM: " + solicitanteMk2 + ',' + '\n' +
+      (infosLenta ? infosLenta + '\n' : '') + '\n';
     texto = "CLIENTE ESTÁ COM INTERNET LENTA. ";
 
     if (procedimentoCompletoLento === 'nao') {
@@ -463,16 +485,25 @@ function gerarTexto() {
     }
 
     textoLocal = localMk2;
-    texto += "SINAL ESTÁ: " + sinalDiv + ". " + extras2;
+    texto += extras2;
 
-    telefone = '\n' + telefoneMk2 + '\n' + refMk2 + '\n';
-    textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + textoLocal;
+    telefone = '\n' + montarTelefoneContato(telefoneMk2, modoContato2) + '\n' + refMk2 + '\n';
+    textoComFormatacaoPropria = true;
+    textoGerado = textoIntro.toUpperCase() + limitarTexto(texto.toUpperCase(), 64) + '\n' + telefone.toUpperCase() + textoLocal;
 
   }
 
   //INTERNET CAINDO
   if (problema === 'internetCaindo') {
-    textoIntro = regiaoMk3 + " - INTERNET CAINDO" + '\n' + "(" + horarioMk3 + ")" + '\n' + '\n' + "TRATADO COM: " + solicitanteMk3 + '\n' + '\n';
+    const infosCaindo = [
+      planoCaindo ? `PLANO: ${planoCaindo}` : null,
+      roteadorCaindo ? `MODELO DO ROTEADOR: ${roteadorCaindo}` : null,
+      macCaindo ? `MAC DA ONU: ${macCaindo}` : null,
+      (sinalRXCaindo || sinalTXCaindo) ? `SINAL RX: ${sinalRXCaindo} | SINAL TX: ${sinalTXCaindo}` : null
+    ].filter(Boolean).join('\n');
+    textoIntro = regiaoMk3 + " - INTERNET CAINDO" + '\n' + "(" + horarioMk3 + ")" + '\n\n' +
+      "TRATADO COM: " + solicitanteMk3 + ',' + '\n' +
+      (infosCaindo ? infosCaindo + '\n' : '') + '\n';
     texto = "CLIENTE ESTÁ COM INTERNET CAINDO. ";
 
     if (procedimentoCompletoCaindo === 'nao') {
@@ -496,20 +527,27 @@ function gerarTexto() {
     texto += "Há QUEDAS EM: " + dispositivosDiv1 + ". ";
 
     textoLocal = localMk3;
-    texto += "SINAL ESTÁ: " + sinalDiv1 + ". " + extras3;
+    texto += extras3;
 
-    telefone = '\n' + telefoneMk3 + '\n' + refMk3 + '\n';
-    textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + textoLocal;
+    telefone = '\n' + montarTelefoneContato(telefoneMk3, modoContato3) + '\n' + refMk3 + '\n';
+    textoComFormatacaoPropria = true;
+    textoGerado = textoIntro.toUpperCase() + limitarTexto(texto.toUpperCase(), 64) + '\n' + telefone.toUpperCase() + textoLocal;
 
   }
 
   //SINAL ALTO
   if (problema === 'sinalAlto') {
-    textoIntro = regiaoMk5 + " - SINAL ALTO" + '\n' + "(" + horarioMk5 + ")" + '\n' + '\n' + "TRATADO COM: " + solicitanteMk5 + '\n' + '\n';
+    const infosSinalAlto = [
+      planoSinalAlto ? `PLANO: ${planoSinalAlto}` : null,
+      roteadorSinalAlto ? `MODELO DO ROTEADOR: ${roteadorSinalAlto}` : null,
+      macSinalAlto ? `MAC DA ONU: ${macSinalAlto}` : null,
+      (sinalRXSinalAlto || sinalTXSinalAlto) ? `SINAL RX: ${sinalRXSinalAlto} | SINAL TX: ${sinalTXSinalAlto}` : null
+    ].filter(Boolean).join('\n');
 
-    texto=  "SINAL ESTÁ: " + sinalDiv5 + ". " +'\n';
-
-    texto += "CLIENTE ESTÁ COM SINAL ALTO. ";
+    textoIntro = regiaoMk5 + " - SINAL ALTO" + '\n' + "(" + horarioMk5 + ")" + '\n\n' +
+      "TRATADO COM: " + solicitanteMk5 + ',' + '\n' +
+      (infosSinalAlto ? infosSinalAlto + '\n' : '') + '\n';
+    texto = "CLIENTE ESTÁ COM SINAL ALTO. ";
 
     if (quedas5 === 'sim') {
       texto += "APRESENTAM QUEDAS SIGNIFICATIVAS NO SISTEMA. ";
@@ -523,14 +561,24 @@ function gerarTexto() {
 
     textoLocal = localMk5;
 
-    telefone = '\n' + telefoneMk5 + '\n' + refMk5 + '\n';
-    textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + textoLocal;
+    telefone = '\n' + montarTelefoneContato(telefoneMk5, modoContato5) + '\n' + refMk5 + '\n';
+    textoComFormatacaoPropria = true;
+    textoGerado = textoIntro.toUpperCase() + limitarTexto(texto.toUpperCase(), 64) + '\n' + telefone.toUpperCase() + textoLocal;
 
   }
 
   //TV COM DEFEITO
   if (problema === 'tvDefeito') {
-    textoIntro = regiaoMk4 + " - TV COM DEFEITO" + '\n' + "(" + horarioMk4 + ")" + '\n' + '\n' + "TRATADO COM: " + solicitanteMk4 + '\n' + '\n';
+    const infosTv = [
+      planoTv ? `PLANO: ${planoTv}` : null,
+      roteadorTv ? `MODELO DO ROTEADOR: ${roteadorTv}` : null,
+      macTv ? `MAC DA ONU: ${macTv}` : null,
+      (sinalRXTv || sinalTXTv) ? `SINAL RX: ${sinalRXTv} | SINAL TX: ${sinalTXTv}` : null
+    ].filter(Boolean).join('\n');
+
+    textoIntro = regiaoMk4 + " - TV COM DEFEITO" + '\n' + "(" + horarioMk4 + ")" + '\n\n' +
+      "TRATADO COM: " + solicitanteMk4 + ',' + '\n' +
+      (infosTv ? infosTv + '\n' : '') + '\n';
     texto = "CLIENTE ESTÁ COM PROBLEMAS NA TV. ";
 
     if (procedimentoCompletoTv4 === 'nao') {
@@ -566,14 +614,15 @@ function gerarTexto() {
       texto += extras7;
 
 
-      telefone = '\n' + telefoneMk7 + '\n' + '\n' + refMk7 + '\n';
+      telefone = '\n' + montarTelefoneContato(telefoneMk7, modoContato7) + '\n' + '\n' + refMk7 + '\n';
       textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + textoLocal;
     }
 
     texto += extras4;
-    telefone = '\n' + telefoneMk4 + '\n' + refMk4;
+    telefone = '\n' + montarTelefoneContato(telefoneMk4, modoContato4) + '\n' + refMk4;
     textoLocal = localMk4;
-    textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + '\n' + textoLocal;
+    textoComFormatacaoPropria = true;
+    textoGerado = textoIntro.toUpperCase() + limitarTexto(texto.toUpperCase(), 64) + '\n' + telefone.toUpperCase() + '\n' + textoLocal;
 
   }
   //INSTALACAO
@@ -605,7 +654,7 @@ function gerarTexto() {
 
     texto += "**CONTRATO " + contrato + "**" + '\n';
 
-    telefone = '\n' + "CONTATO: " + telefoneMkComercial + '\n' + '\n' + refMkComercial + '\n';
+    telefone = '\n' + "CONTATO: " + montarTelefoneContato(telefoneMkComercial, modoContatoComercial) + '\n' + '\n' + refMkComercial + '\n';
     textoLocal = localMkComercial;
 
     textoGerado = texto.toUpperCase() + telefone.toUpperCase() + textoLocal;
@@ -642,7 +691,7 @@ function gerarTexto() {
       texto += '\n' + ">> " + extras7 + '.';
     }
 
-    telefone = '\n' + telefoneMk7 + '\n' + '\n' + refMk7 + '\n';
+    telefone = '\n' + montarTelefoneContato(telefoneMk7, modoContato7) + '\n' + '\n' + refMk7 + '\n';
     textoGerado = textoIntro.toUpperCase() + texto.toUpperCase() + '\n' + telefone.toUpperCase() + textoLocal;
   }
 
@@ -658,7 +707,9 @@ function gerarTexto() {
     }
   }
 
-  const textoLimitado = limitarTexto(textoGerado, 55);
+  // Aplica o mesmo limite de 64 caracteres por linha a todos os modelos de O.S.,
+  // preservando as quebras de linha que já foram definidas em cada modelo.
+  const textoLimitado = limitarTextoComQuebras(textoGerado, 64);
 
   // Atualiza o elemento de texto com o resultado
   document.getElementById('textoGerado').textContent = textoLimitado;
@@ -715,7 +766,6 @@ function adicionarEventoProblema() {
       mostrarElemento(extrasc);
       mostrarElemento(telefoneMk);
 
-      document.querySelectorAll('.modocontato').forEach(mostrarElemento);
 
       mostrarElemento(refMk);
       mostrarElemento(localMk);
@@ -744,7 +794,11 @@ function adicionarEventoProblema() {
       mostrarElemento(procedimentoCompletoLento);
       mostrarElemento(dispositivosDiv);
       mostrarElemento(tvCabeada);
-      mostrarElemento(sinalDiv);
+      mostrarElemento(planoLentaDiv);
+      mostrarElemento(roteadorLentaDiv);
+      mostrarElemento(macLentaDiv);
+      mostrarElemento(sinalRXLentaDiv);
+      mostrarElemento(sinalTXLentaDiv);
       mostrarElemento(extrasc2);
       mostrarElemento(telefoneMk2);
       mostrarElemento(refMk2);
@@ -759,7 +813,11 @@ function adicionarEventoProblema() {
       mostrarElemento(conectadoCabo1);
       mostrarElemento(quedas);
       mostrarElemento(dispositivosDiv1);
-      mostrarElemento(sinalDiv1);
+      mostrarElemento(planoCaindoDiv);
+      mostrarElemento(roteadorCaindoDiv);
+      mostrarElemento(macCaindoDiv);
+      mostrarElemento(sinalRXCaindoDiv);
+      mostrarElemento(sinalTXCaindoDiv);
       mostrarElemento(extrasc3);
       mostrarElemento(telefoneMk3);
       mostrarElemento(refMk3);
@@ -771,7 +829,11 @@ function adicionarEventoProblema() {
       mostrarElemento(horarioMk5);
       mostrarElemento(solicitanteMk5)
       mostrarElemento(quedas5);
-      mostrarElemento(sinalDiv5);
+      mostrarElemento(planoSinalAltoDiv);
+      mostrarElemento(roteadorSinalAltoDiv);
+      mostrarElemento(macSinalAltoDiv);
+      mostrarElemento(sinalRXSinalAltoDiv);
+      mostrarElemento(sinalTXSinalAltoDiv);
       mostrarElemento(extrasc5);
       mostrarElemento(telefoneMk5);
       mostrarElemento(refMk5);
@@ -781,7 +843,12 @@ function adicionarEventoProblema() {
       mostrarElemento(opcoesTvDefeito);
       mostrarElemento(regiaoMk4);
       mostrarElemento(horarioMk4);
-      mostrarElemento(solicitanteMk4)
+      mostrarElemento(solicitanteMk4);
+      mostrarElemento(planoTvDiv);
+      mostrarElemento(roteadorTvDiv);
+      mostrarElemento(macTvDiv);
+      mostrarElemento(sinalRXTvDiv);
+      mostrarElemento(sinalTXTvDiv);
       mostrarElemento(procedimentoCompletoTv4);
       mostrarElemento(conectadoCabo4);
       mostrarElemento(minimiza);
@@ -1152,8 +1219,18 @@ const guiaFluxos = {
     etapas:{
       abrangencia:{q:"A lentidão acontece em um único dispositivo ou em vários?",opts:[
         ["Só em um dispositivo","Somente um dispositivo","umDisp"],["Em vários dispositivos","Vários dispositivos","testeCabo"],["Não foi possível confirmar","Abrangência não confirmada","fimMaisDados"]]},
-      umDisp:{q:"No dispositivo afetado, a lentidão acontece também por cabo de rede (se possível)?",opts:[
+      umDisp:{q:"O dispositivo afetado é um aparelho HTV/IPTV?",help:"Este caminho especial é exclusivo para lentidão apresentada em aparelhos HTV/IPTV.",opts:[
+        ["Sim, é HTV/IPTV","Dispositivo afetado é HTV/IPTV","htvApps"],["Não, é celular, computador ou outro dispositivo","Lentidão em outro dispositivo","umDispComum"],["Não foi possível identificar","Dispositivo afetado não identificado","fimMaisDados"]]},
+      umDispComum:{q:"No dispositivo afetado, a lentidão acontece também por cabo de rede (se possível)?",opts:[
         ["Só no Wi-Fi / por cabo funciona melhor","Problema parece restrito ao Wi-Fi","fimWifi"],["Também fica lento por cabo","Lentidão também ocorre por cabo","fimDispCabo"],["Não foi possível testar por cabo","Teste por cabo não realizado","fimMaisDados"]]},
+      htvApps:{q:"Os demais aplicativos do HTV, como YouTube, funcionam normalmente?",help:"Se os outros aplicativos funcionam e somente o HTV apresenta lentidão, direcione o diagnóstico para o dispositivo e o serviço específico.",opts:[
+        ["Sim, YouTube funciona normalmente","YouTube funciona normalmente; lentidão restrita ao HTV","htvConexao"],["Não, outros aplicativos também apresentam lentidão","Outros aplicativos do HTV também apresentam lentidão","fimWifi"],["Não foi possível testar","Funcionamento dos demais aplicativos não confirmado","fimMaisDados"]]},
+      htvConexao:{q:"Como o HTV está conectado à rede?",opts:[
+        ["Wi-Fi","HTV conectado por Wi-Fi","htvProcedimento"],["Cabo de rede","HTV conectado por cabo de rede","htvProcedimento"],["Não foi possível confirmar","Tipo de conexão do HTV não confirmado","fimMaisDados"]]},
+      htvProcedimento:{q:"O procedimento padrão da TAC para esse cenário já foi aplicado?",help:"Procedimento padrão informado: fixar o IP do HTV em modo estático e limitar a banda a 2048 kbps.",opts:[
+        ["Sim, IP estático e limite de 2048 kbps aplicados","Aplicado IP estático e limite de banda de 2048 kbps","htvTeste"],["Ainda não foi aplicado","Procedimento padrão ainda não aplicado","fimHTVPendente"],["Não foi possível realizar","Procedimento padrão não realizado","fimHTVNaoRealizado"]]},
+      htvTeste:{q:"Como ficou o funcionamento do HTV após os ajustes?",opts:[
+        ["Normalizou","HTV normalizado após os ajustes","fimHTVResolvido"],["Continua lento ou travando","HTV continua apresentando lentidão após os ajustes","fimHTVPersistente"],["Cliente ainda não realizou o teste","Aguardando teste do HTV pelo cliente","fimHTVAguardando"]]},
       testeCabo:{q:"Foi feito teste por cabo, com um único dispositivo e sem downloads ou vídeos em segundo plano?",help:"O treinamento recomenda teste cabeado e sem tráfego concorrente para separar Wi-Fi de conexão.",opts:[
         ["Sim, teste cabeado realizado","Teste cabeado realizado","resultadoCabo"],["Não, ainda não","Teste cabeado pendente","fimTestePendente"]]},
       resultadoCabo:{q:"Qual foi o resultado do teste por cabo?",opts:[
@@ -1164,7 +1241,12 @@ const guiaFluxos = {
       fimDispCabo:["Investigar o dispositivo","Como o problema aparece em um dispositivo, investigar limitações do equipamento, placa de rede, configuração e tráfego local. Comparar com outro dispositivo antes de concluir falha da conexão."],
       fimCaboLento:["Investigar conexão cabeada","Confirmar teste com um único dispositivo e sem tráfego em segundo plano. Verificar se a placa/porta Ethernet negocia apenas 100 Mbps e seguir as verificações internas de sinal/rede; escalar se necessário."],
       fimTestePendente:["Teste adicional recomendado","Realizar teste por cabo, com um único dispositivo e sem tráfego em segundo plano. Se não for possível, registrar o tipo de conexão usada e as limitações do teste."],
-      fimMaisDados:["Coletar mais informações","Confirmar quantos dispositivos são afetados e realizar teste controlado, preferencialmente por cabo. Registrar horário, plano, modelo do roteador e resultado."]
+      fimMaisDados:["Coletar mais informações","Confirmar quantos dispositivos são afetados e realizar teste controlado, preferencialmente por cabo. Registrar horário, plano, modelo do roteador e resultado."],
+      fimHTVResolvido:["Lentidão exclusiva no HTV/IPTV — normalizada","Demais aplicativos, como YouTube, funcionavam normalmente. Aplicado o procedimento padrão da TAC: IP do HTV fixado em modo estático e limitação de banda em 2048 kbps. Cliente realizou novo teste e informou normalização."],
+      fimHTVPendente:["Lentidão exclusiva no HTV/IPTV — procedimento pendente","Demais aplicativos funcionam normalmente. Orientar, conforme procedimento padrão da TAC, a fixação do IP do HTV em modo estático e a limitação de banda em 2048 kbps. Após a configuração, solicitar novo teste e registrar o resultado."],
+      fimHTVNaoRealizado:["Lentidão exclusiva no HTV/IPTV — procedimento não realizado","Demais aplicativos funcionam normalmente. Procedimento padrão da TAC não realizado. Registrar o motivo e seguir o fluxo interno para continuidade da análise."],
+      fimHTVPersistente:["Lentidão exclusiva no HTV/IPTV — persiste após ajustes","Aplicados IP estático e limitação de banda em 2048 kbps, conforme procedimento padrão da TAC. Cliente informa que o problema persiste. Registrar os testes, verificar o comportamento do serviço e do dispositivo e encaminhar para análise conforme o fluxo interno."],
+      fimHTVAguardando:["Lentidão exclusiva no HTV/IPTV — aguardando validação","Aplicados IP estático e limitação de banda em 2048 kbps, conforme procedimento padrão da TAC. Aguardando retorno do cliente para confirmar se houve normalização."]
     }
   },
   quedas:{
@@ -1214,75 +1296,6 @@ const guiaFluxos = {
     }
   }
 };
-
-
-/* COMPLEMENTO DO GUIA DE DIAGNÓSTICO */
-
-/* 1. Falta de internet: verificar alimentação antes dos LEDs */
-guiaFluxos.semInternet.inicio = "energia";
-
-guiaFluxos.semInternet.etapas.energia = {
-  q: "A ONU está com alguma luz acesa?",
-  help: "Se todas as luzes estiverem apagadas, investigue primeiro a alimentação elétrica. Não manipule a fibra óptica.",
-  opts: [
-    ["Sim, há luzes acesas", "ONU apresenta luzes acesas", "los"],
-    ["Não, todas estão apagadas", "Todas as luzes da ONU apagadas", "fimEnergia"],
-    ["Não foi possível verificar", "Estado das luzes não verificado", "fimNaoVerificado"]
-  ]
-};
-
-guiaFluxos.semInternet.finais.fimEnergia = [
-  "Verificar alimentação elétrica da ONU",
-  "Orientar a verificar, com segurança, se a tomada está funcionando; se possível, testar outro aparelho na tomada. Conferir se a fonte está corretamente conectada à tomada e à ONU. Verificar na etiqueta se a tensão e a corrente da fonte são compatíveis com as especificações do equipamento. Se estiver usando adaptador ou extensão, testar diretamente em uma tomada adequada, quando for seguro. Não utilizar fonte incompatível nem abrir o equipamento. Depois, verificar se as luzes voltaram. Se continuar apagada ou o cliente não conseguir realizar as verificações, registrar o resultado e seguir o fluxo interno de suporte/O.S."
-];
-
-/* 2. Huawei AX3S: conferência manual apenas nos casos pertinentes */
-
-/* Encaminha para a conferência do roteador quando o teste
-   indicar possível problema restrito ao Wi-Fi. */
-guiaFluxos.lenta.etapas.umDisp.opts[0][2] = "ax3s";
-
-/* Se o teste cabeado estiver adequado, também permite conferir
-   o Wi-Fi antes de concluir o diagnóstico. */
-guiaFluxos.lenta.etapas.resultadoCabo.opts[0][2] = "ax3s";
-
-guiaFluxos.lenta.etapas.ax3s = {
-  q: "O roteador utilizado pelo cliente é um Huawei AX3S?",
-  help: "A conferência abaixo é específica para esse modelo. Não altere configurações automaticamente.",
-  opts: [
-    ["Sim, é um Huawei AX3S", "Roteador Huawei AX3S", "ax3sConfig"],
-    ["Não, é outro modelo", "Roteador diferente do Huawei AX3S", "fimWifi"],
-    ["Não foi possível confirmar", "Modelo do roteador não confirmado", "fimAX3SNaoVerificado"]
-  ]
-};
-
-guiaFluxos.lenta.etapas.ax3sConfig = {
-  q: "Como estão as configurações do Huawei AX3S?",
-  help: "Conferir manualmente no sistema autorizado: firmware SP3; 2,4 GHz em largura automática 20/40 MHz; 5 GHz fixa em 80 MHz; DHCPv6; IPv6 ativo por padrão; TR-069 configurado no ACS; redes de 2,4 e 5 GHz unificadas por padrão.",
-  opts: [
-    ["Configurações conferidas e conforme o padrão", "AX3S conferido conforme o padrão informado", "fimWifi"],
-    ["Há divergência com justificativa registrada", "AX3S com divergência documentada", "fimAX3SDocumentada"],
-    ["Há divergência sem justificativa localizada", "AX3S com divergência sem justificativa localizada", "fimAX3SRevisar"],
-    ["Não foi possível conferir tudo", "Conferência do AX3S incompleta", "fimAX3SNaoVerificado"]
-  ]
-};
-
-guiaFluxos.lenta.finais.fimAX3SDocumentada = [
-  "Configuração diferente com justificativa registrada",
-  "Localizar a anotação técnica ou o fechamento da O.S. que justifica a configuração. Confirmar se a justificativa continua válida antes de qualquer alteração. Registrar a conferência e seguir o procedimento interno."
-];
-
-guiaFluxos.lenta.finais.fimAX3SRevisar = [
-  "Revisar configuração do Huawei AX3S",
-  "Registrar qual configuração diverge do padrão. Verificar o histórico de atendimentos e as O.S. para localizar uma justificativa técnica. Se não houver registro, consultar o procedimento interno ou a equipe responsável antes de alterar qualquer parâmetro."
-];
-
-guiaFluxos.lenta.finais.fimAX3SNaoVerificado = [
-  "Conferência do Huawei AX3S pendente",
-  "Registrar quais itens não puderam ser conferidos e continuar o diagnóstico de Wi-Fi com os testes disponíveis. Não presumir que uma configuração está incorreta nem realizar alterações sem validação."
-];
-
-
 let guiaEstado={tipo:"",etapa:"",respostas:[],pilha:[]};
 function iniciarGuiaDiagnostico(){
  const tipo=document.getElementById("guiaTipoProblema").value;
@@ -1321,7 +1334,10 @@ function copiarResumoGuia(){
 }
 function voltarGuiaDiagnostico(){
  if(!guiaEstado.pilha.length){reiniciarGuiaDiagnostico();return;}
- guiaEstado.respostas.pop();guiaEstado.etapa=guiaEstado.pilha.pop();renderizarEtapaGuia();
+ guiaEstado.respostas.pop();guiaEstado.etapa=guiaEstado.pilha.pop();
+ document.getElementById("guiaResultado").classList.add("hidden");
+ document.getElementById("guiaEtapa").classList.remove("hidden");
+ renderizarEtapaGuia();
 }
 function reiniciarGuiaDiagnostico(){
  guiaEstado={tipo:"",etapa:"",respostas:[],pilha:[]};
