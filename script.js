@@ -228,6 +228,14 @@ function limitarTexto(texto, limite) {
   return linhas.join('\n');
 }
 
+function obterModoContato(id) {
+  const grupo = document.getElementById(id);
+  if (!grupo) return '';
+  return Array.from(grupo.querySelectorAll('input[type="checkbox"]:checked'))
+    .map(opcao => opcao.value)
+    .join(' e ');
+}
+
 function gerarTexto() {
 
   // Campo genérico removido: não existe no HTML e não é necessário.
@@ -243,7 +251,7 @@ function gerarTexto() {
   const divsinaltx = obterValorElemento('sinaltx');
   const extras = obterValorElemento('extras');
   const telefoneMk = obterValorElemento('telefone');
-  const modoContato = obterValorElemento('modoContato');
+  const modoContato = obterModoContato('modoContato');
   const refMk = obterValorElemento('ref');
   const localMk = obterValorElemento('local');
 
@@ -260,7 +268,7 @@ function gerarTexto() {
   const extras6 = obterValorElemento('extras6');
   const osanterior = obterValorElemento('osanterior');
   const telefoneMk6 = obterValorElemento('telefone6');
-  const modoContato6 = obterValorElemento('modoContato6');
+  const modoContato6 = obterModoContato('modoContato6');
   const refMk6 = obterValorElemento('ref6');
   const localMk6 = obterValorElemento('local6');
 
@@ -278,7 +286,7 @@ function gerarTexto() {
   const sinalTXLenta = obterValorElemento('sinalTXLenta');
   const extras2 = obterValorElemento('extras2');
   const telefoneMk2 = obterValorElemento('telefone2');
-  const modoContato2 = obterValorElemento('modoContato2');
+  const modoContato2 = obterModoContato('modoContato2');
   const refMk2 = obterValorElemento('ref2');
   const localMk2 = obterValorElemento('local2');
 
@@ -297,7 +305,7 @@ function gerarTexto() {
   const sinalTXCaindo = obterValorElemento('sinalTXCaindo');
   const extras3 = obterValorElemento('extras3');
   const telefoneMk3 = obterValorElemento('telefone3');
-  const modoContato3 = obterValorElemento('modoContato3');
+  const modoContato3 = obterModoContato('modoContato3');
   const refMk3 = obterValorElemento('ref3');
   const localMk3 = obterValorElemento('local3');
 
@@ -313,7 +321,7 @@ function gerarTexto() {
   const sinalTXSinalAlto = obterValorElemento('sinalTXSinalAlto');
   const extras5 = obterValorElemento('extras5');
   const telefoneMk5 = obterValorElemento('telefone5');
-  const modoContato5 = obterValorElemento('modoContato5');
+  const modoContato5 = obterModoContato('modoContato5');
   const refMk5 = obterValorElemento('ref5');
   const localMk5 = obterValorElemento('local5');
 
@@ -331,7 +339,7 @@ function gerarTexto() {
   const minimiza = obterValorElemento('minimiza4');
   const extras4 = obterValorElemento('extras4');
   const telefoneMk4 = obterValorElemento('telefone4');
-  const modoContato4 = obterValorElemento('modoContato4');
+  const modoContato4 = obterModoContato('modoContato4');
   const refMk4 = obterValorElemento('ref4');
   const localMk4 = obterValorElemento('local4');
 
@@ -345,7 +353,7 @@ function gerarTexto() {
   const pagamentoMk = obterValorElemento('pagamento');
   const extras7 = obterValorElemento('extras7');
   const telefoneMk7 = obterValorElemento('telefone7');
-  const modoContato7 = obterValorElemento('modoContato7');
+  const modoContato7 = obterModoContato('modoContato7');
   const refMk7 = obterValorElemento('ref7');
   const localMk7 = obterValorElemento('local7');
 
@@ -362,7 +370,7 @@ function gerarTexto() {
   const clienteCiente = obterValorElemento('clienteCiente');
   const contrato = obterValorElemento('contrato');
   const telefoneMkComercial = obterValorElemento('telefoneComercial');
-  const modoContatoComercial = obterValorElemento('modoContatoComercial');
+  const modoContatoComercial = obterModoContato('modoContatoComercial');
   const refMkComercial = obterValorElemento('refComercial');
   const localMkComercial = obterValorElemento('localComercial');
 
@@ -713,6 +721,8 @@ function gerarTexto() {
 
   // Atualiza o elemento de texto com o resultado
   document.getElementById('textoGerado').textContent = textoLimitado;
+  const avisoConferencia = document.getElementById('avisoConferenciaOS');
+  if (avisoConferencia) avisoConferencia.classList.remove('hidden');
 
   // Mostra o botão de copiar texto
   const botaoCopiarTexto = document.getElementById('copiarTextoo');
