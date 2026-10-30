@@ -35,9 +35,8 @@
 <p>Transforme coordenadas em um link do Google Maps.</p>
 <label for="localizacaoInput">Cole a localização:</label>
 <input id="localizacaoInput" placeholder="Lat: -28.7134130 / Long: -49.054707" type="text"/>
-<button onclick="formatarLocalizacao()">Gerar Link</button>
 <p id="localizacaoFormatada"></p>
-<button onclick="copiarResultado()">Copiar Link</button>
+<button id="botaoCopiarLocalizacao" onclick="copiarResultado()" style="display: none;">Copiar Link</button>
 </div></div><div class="dashboard-column coluna-meio"><div class="container card-os">
 <h2>🧰 Gerador de O.S</h2>
 <p>Selecione o tipo de solicitação e preencha os campos necessários.</p>
@@ -181,6 +180,7 @@
 <div class="opcoes hidden" id="refMk">
 <label for="ref">Referência do local: </label>
 <input id="ref" name="ref" placeholder="Ex: Casa cinza ao lado do mercado " type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastro"> Foto anexada ao cadastro</label>
 </div>
 <div class="opcoes hidden" id="localMk">
 <label for="local">Cole o link da localização do google maps </label>
@@ -192,6 +192,12 @@
 <div class="opcoes hidden" id="regiaoMk6">
 <label for="regiao6">Adicione bairro, cidade e defeito</label>
 <input id="regiao6" name="regiao6" placeholder="Ex: Centro, Jaguaruna - PROBLEMA" type="text"/>
+</div>
+<div class="card grupo-tipo-local" data-tipo-local="personalization">
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_personalization" value="**É MORADOR FIXO**"> É morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_personalization" value="**NÃO É MORADOR FIXO**"> Não é morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_personalization" value="**É UMA EMPRESA**"> É uma empresa</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_personalization" value="**É UM COMÉRCIO**"> É um comércio</label></div>
 </div>
 <div class="opcoes hidden" id="horarioMk6">
 <label for="horario6">Restrição de horário:</label>
@@ -243,6 +249,7 @@
 <div class="opcoes hidden" id="refMk6">
 <label for="ref6">Referência do local: </label>
 <input id="ref6" name="ref6" placeholder="Ex: Casa cinza ao lado do mercado " type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastro6"> Foto anexada ao cadastro</label>
 </div>
 <div class="opcoes hidden" id="localMk6">
 <label for="local6">Cole o link da localização do google maps </label>
@@ -254,6 +261,12 @@
 <div class="opcoes hidden" id="regiaoMk2">
 <label for="regiao2">Adicione bairro, cidade</label>
 <input id="regiao2" name="regiao2" placeholder="Ex: Centro, Jaguaruna" type="text"/>
+</div>
+<div class="card grupo-tipo-local" data-tipo-local="internetLenta">
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetLenta" value="**É MORADOR FIXO**"> É morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetLenta" value="**NÃO É MORADOR FIXO**"> Não é morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetLenta" value="**É UMA EMPRESA**"> É uma empresa</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetLenta" value="**É UM COMÉRCIO**"> É um comércio</label></div>
 </div>
 <div class="opcoes hidden" id="horarioMk2">
 <label for="horario2">Restrição de horário:</label>
@@ -318,6 +331,7 @@
 <div class="opcoes hidden" id="refMk2">
 <label for="ref2">Referência do local: </label>
 <input id="ref2" name="ref2" placeholder="Ex: Casa cinza ao lado do mercado " type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastro2"> Foto anexada ao cadastro</label>
 </div>
 <div class="opcoes hidden" id="localMk2">
 <label for="local2">Cole o link da localização do google maps </label>
@@ -329,6 +343,12 @@
 <div class="opcoes hidden" id="regiaoMk3">
 <label for="regiao3">Adicione bairro, cidade</label>
 <input id="regiao3" name="regiao3" placeholder="Ex: Centro, Jaguaruna" type="text"/>
+</div>
+<div class="card grupo-tipo-local" data-tipo-local="internetCaindo">
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetCaindo" value="**É MORADOR FIXO**"> É morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetCaindo" value="**NÃO É MORADOR FIXO**"> Não é morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetCaindo" value="**É UMA EMPRESA**"> É uma empresa</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_internetCaindo" value="**É UM COMÉRCIO**"> É um comércio</label></div>
 </div>
 <div class="opcoes hidden" id="horarioMk3">
 <label for="horario3">Restrição de horário:</label>
@@ -399,6 +419,7 @@
 <div class="opcoes hidden" id="refMk3">
 <label for="ref3">Referência do local: </label>
 <input id="ref3" name="ref3" placeholder="Ex: Casa cinza ao lado do mercado " type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastro3"> Foto anexada ao cadastro</label>
 </div>
 <div class="opcoes hidden" id="localMk3">
 <label for="local3">Cole o link da localização do google maps </label>
@@ -410,6 +431,12 @@
 <div class="opcoes hidden" id="regiaoMk5">
 <label for="regiao5">Adicione bairro, cidade</label>
 <input id="regiao5" name="regiao5" placeholder="Ex: Centro, Jaguaruna" type="text"/>
+</div>
+<div class="card grupo-tipo-local" data-tipo-local="sinalAlto">
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_sinalAlto" value="**É MORADOR FIXO**"> É morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_sinalAlto" value="**NÃO É MORADOR FIXO**"> Não é morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_sinalAlto" value="**É UMA EMPRESA**"> É uma empresa</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_sinalAlto" value="**É UM COMÉRCIO**"> É um comércio</label></div>
 </div>
 <div class="opcoes hidden" id="horarioMk5">
 <label for="horario5">Restrição de horário:</label>
@@ -462,6 +489,7 @@
 <div class="opcoes hidden" id="refMk5">
 <label for="ref5">Referência do local: </label>
 <input id="ref5" name="ref5" placeholder="Ex: Casa cinza ao lado do mercado " type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastro5"> Foto anexada ao cadastro</label>
 </div>
 <div class="opcoes hidden" id="localMk5">
 <label for="local5">Cole o link da localização do google maps </label>
@@ -473,6 +501,12 @@
 <div class="opcoes hidden" id="regiaoMk4">
 <label for="regiao4">Adicione bairro, cidade</label>
 <input id="regiao4" name="regiao4" placeholder="Ex: Centro, Jaguaruna" type="text"/>
+</div>
+<div class="card grupo-tipo-local" data-tipo-local="tvDefeito">
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_tvDefeito" value="**É MORADOR FIXO**"> É morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_tvDefeito" value="**NÃO É MORADOR FIXO**"> Não é morador fixo</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_tvDefeito" value="**É UMA EMPRESA**"> É uma empresa</label></div>
+  <div class="grupo-radio"><label><input type="radio" name="tipoLocal_tvDefeito" value="**É UM COMÉRCIO**"> É um comércio</label></div>
 </div>
 <div class="opcoes hidden" id="horarioMk4">
 <label for="horario4">Restrição de horário:</label>
@@ -506,14 +540,14 @@
 <label for="procedimentoCompletoTv4">Realizou procedimento completo? *</label>
 <select id="procedimentoCompletoTv4" name="procedimentoCompletoTv4">
 <option value="">-- Selecione --</option>
-<option value="sim">Sim</option>
-<option value="nao">Não</option>
+<option value="sim">Sim, realizou o procedimento </option>
+<option value="nao">Não realizou o procedimento</option>
 </select>
 <div class="opcoes hidden" id="conectadoCabo4">
 <label for="cabosConectadosDiv4">Cabos estão bem conectados? *</label>
 <select id="cabosConectadosDiv4" name="cabosConectadosDiv4">
 <option value="">-- Selecione --</option>
-<option value="sim">Sim</option>
+<option value="sim">Sim, estão bem conectados</option>
 <option value="nao">Não</option>
 </select>
 </div>
@@ -541,6 +575,7 @@
 <div class="opcoes hidden" id="refMk4">
 <label for="ref4">Referência do local: </label>
 <input id="ref4" name="ref4" placeholder="Ex: Casa cinza ao lado do mercado " type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastro4"> Foto anexada ao cadastro</label>
 </div>
 <div class="opcoes hidden" id="localMk4">
 <label for="local4">Cole o link da localização do google maps </label>
@@ -601,6 +636,7 @@
 <div class="opcoes hidden" id="refMk7">
 <label for="ref7">Referência do local: </label>
 <input id="ref7" name="ref7" placeholder="Ex: Casa cinza ao lado do mercado " type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastro7"> Foto anexada ao cadastro</label>
 </div>
 <div class="opcoes hidden" id="localMk7">
 <label for="local7">Cole o link da localização do google maps </label>
@@ -689,6 +725,7 @@
 <div>
 <label for="refComercial">Referência do local:</label>
 <input id="refComercial" name="refComercial" placeholder="Ex: Casa cinza ao lado do mercado" type="text"/>
+<label class="checkbox-foto-cadastro"><input type="checkbox" id="fotoCadastroComercial"> Foto anexada ao cadastro</label>
 </div>
 <div>
 <label for="localComercial">Cole o link da localização do Google Maps:</label>
@@ -888,8 +925,7 @@
 <h2>🪪 Formatador de CPF e CNPJ</h2>
 <p>Formate documentos rapidamente.</p>
 <label for="docInput">Documento</label>
-<input id="docInput" placeholder="Digite ou cole o CPF/CPNJ" type="text"/>
-<button onclick="formatadorDoc()">Formatar</button>
+<input id="docInput" placeholder="Digite ou cole o CPF/CNPJ" type="text"/>
 <p id="docResultado"></p>
 <button id="botaoCopiarDoc" onclick="copiarDocumento()" style="display: none;">
               Copiar
@@ -898,7 +934,6 @@
 <h2>🔎Verificar MAC</h2>
 <p>Consulte o fabricante associado a um endereço MAC.</p>
 <input id="macInputVerificar" placeholder="EX.: AA:BB:CC:11:22:33" type="text"/>
-<button onclick="verificarMac()">Verificar</button>
 <p id="resultado"></p>
 <iframe frameborder="no" id="iframeResultado" scrolling=""></iframe>
 </div></div></div></div>  <script src="script.js?v=20261030-2" defer></script>

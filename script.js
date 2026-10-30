@@ -8,40 +8,49 @@ function abrirLink1() {
   window.open("https://faq.tactelecom.com.br/bibliotecas/comercial/", "_blank");
 }
 
-//FORMATADOR DE CPF/CNPJ
+// FORMATADOR AUTOMÁTICO DE CPF/CNPJ
 function formatadorDoc() {
-    const docEntrada = document.getElementById("docInput").value;
-    const docNumeros = docEntrada.replace(/\D/g, "");
-
+    const campo = document.getElementById("docInput");
+    const docNumeros = campo.value.replace(/\D/g, "");
     const resultado = document.getElementById("docResultado");
     const botaoCopiar = document.getElementById("botaoCopiarDoc");
 
     if (docNumeros.length === 11) {
-        // Formata como CPF
         resultado.textContent = docNumeros.replace(
             /(\d{3})(\d{3})(\d{3})(\d{2})/,
             "$1.$2.$3-$4"
         );
-
         botaoCopiar.style.display = "inline-block";
-
     } else if (docNumeros.length === 14) {
-        // Formata como CNPJ
         resultado.textContent = docNumeros.replace(
             /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
             "$1.$2.$3/$4-$5"
         );
-
         botaoCopiar.style.display = "inline-block";
-
     } else {
-        resultado.textContent =
-            "Digite um CPF com 11 dígitos ou um CNPJ com 14 dígitos.";
-
+        resultado.textContent = "";
         botaoCopiar.style.display = "none";
     }
 }
 
+function configurarFormatadoresAutomaticos() {
+  const campoDoc = document.getElementById("docInput");
+  const campoLocalizacao = document.getElementById("localizacaoInput");
+  let temporizadorLocalizacao;
+
+  if (campoDoc) {
+    campoDoc.addEventListener("input", formatadorDoc);
+  }
+
+  if (campoLocalizacao) {
+    campoLocalizacao.addEventListener("input", () => {
+      clearTimeout(temporizadorLocalizacao);
+      temporizadorLocalizacao = setTimeout(() => {
+        formatarLocalizacao();
+      }, 450);
+    });
+  }
+}
 
 function copiarDocumento() {
     const resultadoDoc = document.getElementById("docResultado").textContent;
@@ -77,50 +86,76 @@ function copiarResultadoNome() {
   copiarParaAreaTransferencia(resultadoNome);
 }
 */
-//MAC
-function verificarMac() {
-  // Obter o valor do input
-  var macAddress = document.getElementById("macInputVerificar").value;
+// MAC — consulta automática ao completar os 12 caracteres hexadecimais
+let macConsultaTimer = null;
+let ultimoMacConsultado = "";
 
-  // Verificar se o valor está vazio
-  if (macAddress.trim() === "") {
-    // Limpar o iframe se o campo estiver vazio
-    document.getElementById("iframeResultado").src = "";
-    document.getElementById("resultado").innerText = "Endereço MAC vazio.";
+function normalizarMac(valor) {
+  return valor.replace(/[^a-fA-F0-9]/g, "").toUpperCase();
+}
+
+function verificarMac() {
+  const campo = document.getElementById("macInputVerificar");
+  const resultado = document.getElementById("resultado");
+  const iframe = document.getElementById("iframeResultado");
+  const macOriginal = campo.value.trim();
+  const macLimpo = normalizarMac(macOriginal);
+
+  if (macLimpo.length !== 12) {
+    resultado.innerText = "Digite um MAC completo com 12 caracteres hexadecimais.";
+    iframe.src = "about:blank";
+    ultimoMacConsultado = "";
     return;
   }
 
-  // Construir a URL da solicitação
-  var apiUrl = "https://api.macvendors.com/" + encodeURIComponent(macAddress);
+  if (macLimpo === ultimoMacConsultado) return;
+  ultimoMacConsultado = macLimpo;
 
-  // Realizar a pesquisa diretamente no iframe
-  document.getElementById("iframeResultado").src = apiUrl;
-
-  // Limpar o campo de entrada
-  document.getElementById("macInputVerificar").value = "";
-
-  // Exibir o valor construído no elemento com id "resultado"
-  document.getElementById("resultado").innerText = "Verificando...";
+  const macFormatado = macLimpo.match(/.{2}/g).join(":");
+  resultado.innerText = "Consultando fabricante...";
+  iframe.src = "https://api.macvendors.com/" + encodeURIComponent(macFormatado);
 }
 
-// LOCALIZAÇÃO
-function formatarLocalizacao() {
-  // Obtém o valor do input de localização
-  let localizacaoEntrada = document.getElementById("localizacaoInput").value;
+function configurarConsultaAutomaticaMac() {
+  const campo = document.getElementById("macInputVerificar");
+  if (!campo) return;
 
-  // Utiliza expressão regular para extrair números decimais
-  let numeros = localizacaoEntrada.match(/-?\d+\.\d+/g);
+  campo.addEventListener("input", () => {
+    clearTimeout(macConsultaTimer);
+    const macLimpo = normalizarMac(campo.value);
+    if (macLimpo.length < 12) {
+      ultimoMacConsultado = "";
+      document.getElementById("resultado").innerText = "";
+      document.getElementById("iframeResultado").src = "about:blank";
+      return;
+    }
+    if (macLimpo.length > 12) return;
+    macConsultaTimer = setTimeout(verificarMac, 450);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  configurarConsultaAutomaticaMac();
+  configurarFormatadoresAutomaticos();
+});
+
+// FORMATADOR AUTOMÁTICO DE LOCALIZAÇÃO
+function formatarLocalizacao() {
+  const campo = document.getElementById("localizacaoInput");
+  const saida = document.getElementById("localizacaoFormatada");
+  const botaoCopiar = document.getElementById("botaoCopiarLocalizacao");
+  const localizacaoEntrada = campo.value;
+  const numeros = localizacaoEntrada.match(/-?\d+\.\d+/g);
 
   if (numeros && numeros.length >= 2) {
-    // Gera a localização formatada
-    let localizacaoFormatada = "https://maps.google.com/?q=" + numeros.join(',');
-
-    // Atualiza o texto e o link no HTML
-    document.getElementById("localizacaoFormatada").textContent = localizacaoFormatada;
-    document.getElementById("localizacaoFormatada").setAttribute("data-link-mapa", localizacaoFormatada);
+    const localizacaoFormatada = "https://maps.google.com/?q=" + numeros.slice(0, 2).join(",");
+    saida.textContent = localizacaoFormatada;
+    saida.setAttribute("data-link-mapa", localizacaoFormatada);
+    if (botaoCopiar) botaoCopiar.style.display = "inline-block";
   } else {
-    // Exibe mensagem de localização inválida
-    document.getElementById("localizacaoFormatada").textContent = "Localização inválida.";
+    saida.textContent = "";
+    saida.removeAttribute("data-link-mapa");
+    if (botaoCopiar) botaoCopiar.style.display = "none";
   }
 }
 
@@ -128,6 +163,7 @@ function formatarLocalizacao() {
 function copiarResultado() {
   // Obtém o resultado formatado
   let resultado = document.getElementById("localizacaoFormatada").getAttribute("data-link-mapa");
+  if (!resultado) return;
 
   // Cria um elemento de texto temporário para a área de transferência
   const tempInput = document.createElement("textarea");
@@ -202,6 +238,12 @@ function obterValorElemento(id) {
   return document.getElementById(id).value;
 }
 
+function obterReferenciaComFoto(idReferencia, idCheckbox) {
+  const referencia = obterValorElemento(idReferencia);
+  const fotoAnexada = document.getElementById(idCheckbox)?.checked;
+  return referencia + (fotoAnexada ? (referencia ? '\n' : '') + '**FOTO ANEXADA AO CADASTRO**' : '');
+}
+
 function limitarTextoComQuebras(texto, limite) {
   return texto
     .split('\n') // Divide o texto mantendo as quebras de linha originais
@@ -252,11 +294,92 @@ function gerarTexto() {
   const extras = obterValorElemento('extras');
   const telefoneMk = obterValorElemento('telefone');
   const modoContato = obterModoContato('modoContato');
-  const refMk = obterValorElemento('ref');
+  const refMk = obterReferenciaComFoto('ref', 'fotoCadastro');
   const localMk = obterValorElemento('local');
 
   /* personalizavel */
   const problema = problemaSelect.value;
+
+  // Confere os campos essenciais antes de gerar a O.S.
+  // O primeiro campo pendente recebe destaque e foco para facilitar a correção.
+  function conferirCamposOS(tipo) {
+    document.querySelectorAll('.campo-validacao-erro').forEach(el => el.remove());
+    document.querySelectorAll('.campo-com-erro').forEach(el => el.classList.remove('campo-com-erro'));
+
+    const camposPorTipo = {
+      // Dados básicos: identificação do solicitante, região, telefone e localização.
+      // Horário e referência ficam opcionais.
+      semInternet: ['regiao', 'horario', 'solicitante', 'telefone', 'local', 'plano1', 'roteador1', 'mac1', 'sinal1', 'sinaltx'],
+      personalization: ['regiao6', 'horario6', 'solicitante6', 'telefone6', 'local6'],
+      internetLenta: ['regiao2', 'horario2', 'solicitante2', 'telefone2', 'local2', 'planoLenta', 'roteadorLenta', 'macLenta', 'sinalRXLenta', 'sinalTXLenta'],
+      internetCaindo: ['regiao3', 'horario3', 'solicitante3', 'telefone3', 'local3', 'planoCaindo', 'roteadorCaindo', 'macCaindo', 'sinalRXCaindo', 'sinalTXCaindo'],
+      sinalAlto: ['regiao5', 'horario5', 'solicitante5', 'telefone5', 'local5', 'planoSinalAlto', 'roteadorSinalAlto', 'macSinalAlto', 'sinalRXSinalAlto', 'sinalTXSinalAlto'],
+      tvDefeito: ['regiao4', 'horario4', 'solicitante4', 'telefone4', 'local4', 'planoTv', 'roteadorTv', 'macTv', 'sinalRXTv', 'sinalTXTv'],
+      cabeamento: ['regiao7', 'horario7', 'solicitante7', 'telefone7', 'local7', 'cabear'],
+      instalacao: ['nomeAtendente', 'planoCliente', 'telefoneComercial', 'localComercial']
+    };
+
+    const ids = camposPorTipo[tipo] || [];
+
+    // Identifica visualmente os campos obrigatórios com asterisco,
+    // incluindo os grupos de Forma de contato.
+    const gruposContato = {
+      semInternet: 'modoContato',
+      personalization: 'modoContato6',
+      internetLenta: 'modoContato2',
+      internetCaindo: 'modoContato3',
+      sinalAlto: 'modoContato5',
+      tvDefeito: 'modoContato4',
+      cabeamento: 'modoContato7',
+      instalacao: 'modoContatoComercial'
+    };
+    const idsObrigatorios = [...Object.values(camposPorTipo).flat(), ...Object.values(gruposContato)];
+    [...new Set(idsObrigatorios)].forEach(id => {
+      const label = document.querySelector(`label[for="${id}"]`);
+      if (label && !label.querySelector('.campo-obrigatorio-asterisco')) {
+        const asterisco = document.createElement('span');
+        asterisco.className = 'campo-obrigatorio-asterisco';
+        asterisco.textContent = ' *';
+        asterisco.setAttribute('aria-label', 'obrigatório');
+        label.appendChild(asterisco);
+      }
+    });
+    const camposTecnicos = ['mac1','sinal1','sinaltx','plano1','roteador1','planoLenta','roteadorLenta','macLenta','sinalRXLenta','sinalTXLenta','planoCaindo','roteadorCaindo','macCaindo','sinalRXCaindo','sinalTXCaindo','planoSinalAlto','roteadorSinalAlto','macSinalAlto','sinalRXSinalAlto','sinalTXSinalAlto','planoTv','roteadorTv','macTv','sinalRXTv','sinalTXTv'];
+    camposTecnicos.forEach(id => {
+      const campo = document.getElementById(id);
+      if (campo) campo.dataset.permiteIndisponivel = 'true';
+    });
+    const pendentes = ids.map(id => document.getElementById(id)).filter(campo => {
+      if (!campo || !campo.getClientRects().length) return false;
+      if (campo.disabled) return false;
+      // Se não foi possível consultar um dado técnico, pode ser preenchido
+      // com "NÃO VERIFICADO" ou "NÃO DISPONÍVEL" para liberar a geração.
+      return !String(campo.value || '').trim();
+    });
+
+    // A forma de contato é um grupo de caixas: basta marcar uma opção.
+    const grupo = document.getElementById(gruposContato[tipo]);
+    if (grupo && grupo.getClientRects().length && !grupo.querySelector('input[type="checkbox"]:checked')) {
+      pendentes.push(grupo);
+    }
+
+    if (!pendentes.length) return true;
+
+    const primeiro = pendentes[0];
+    pendentes.forEach(campo => {
+      const alvo = campo.matches('input, select, textarea') ? campo : campo.querySelector('input');
+      if (alvo) alvo.classList.add('campo-com-erro');
+    });
+
+    const foco = primeiro.matches('input, select, textarea') ? primeiro : primeiro.querySelector('input');
+    if (foco) {
+      foco.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      foco.focus({ preventScroll: true });
+    }
+    return false;
+  }
+
+  if (!conferirCamposOS(problema)) return;
   const regiaoMk6 = obterValorElemento('regiao6');
   const horarioMk6 = obterValorElemento('horario6');
   const solicitanteMk6 = obterValorElemento('solicitante6');
@@ -269,7 +392,7 @@ function gerarTexto() {
   const osanterior = obterValorElemento('osanterior');
   const telefoneMk6 = obterValorElemento('telefone6');
   const modoContato6 = obterModoContato('modoContato6');
-  const refMk6 = obterValorElemento('ref6');
+  const refMk6 = obterReferenciaComFoto('ref6', 'fotoCadastro6');
   const localMk6 = obterValorElemento('local6');
 
   /* lenta */
@@ -287,7 +410,7 @@ function gerarTexto() {
   const extras2 = obterValorElemento('extras2');
   const telefoneMk2 = obterValorElemento('telefone2');
   const modoContato2 = obterModoContato('modoContato2');
-  const refMk2 = obterValorElemento('ref2');
+  const refMk2 = obterReferenciaComFoto('ref2', 'fotoCadastro2');
   const localMk2 = obterValorElemento('local2');
 
   /* caindo */
@@ -306,7 +429,7 @@ function gerarTexto() {
   const extras3 = obterValorElemento('extras3');
   const telefoneMk3 = obterValorElemento('telefone3');
   const modoContato3 = obterModoContato('modoContato3');
-  const refMk3 = obterValorElemento('ref3');
+  const refMk3 = obterReferenciaComFoto('ref3', 'fotoCadastro3');
   const localMk3 = obterValorElemento('local3');
 
   /* sinal alto */
@@ -322,7 +445,7 @@ function gerarTexto() {
   const extras5 = obterValorElemento('extras5');
   const telefoneMk5 = obterValorElemento('telefone5');
   const modoContato5 = obterModoContato('modoContato5');
-  const refMk5 = obterValorElemento('ref5');
+  const refMk5 = obterReferenciaComFoto('ref5', 'fotoCadastro5');
   const localMk5 = obterValorElemento('local5');
 
   /* tv */
@@ -340,7 +463,7 @@ function gerarTexto() {
   const extras4 = obterValorElemento('extras4');
   const telefoneMk4 = obterValorElemento('telefone4');
   const modoContato4 = obterModoContato('modoContato4');
-  const refMk4 = obterValorElemento('ref4');
+  const refMk4 = obterReferenciaComFoto('ref4', 'fotoCadastro4');
   const localMk4 = obterValorElemento('local4');
 
   /* cabeamento*/
@@ -354,7 +477,7 @@ function gerarTexto() {
   const extras7 = obterValorElemento('extras7');
   const telefoneMk7 = obterValorElemento('telefone7');
   const modoContato7 = obterModoContato('modoContato7');
-  const refMk7 = obterValorElemento('ref7');
+  const refMk7 = obterReferenciaComFoto('ref7', 'fotoCadastro7');
   const localMk7 = obterValorElemento('local7');
 
   /* instalacao */
@@ -371,7 +494,7 @@ function gerarTexto() {
   const contrato = obterValorElemento('contrato');
   const telefoneMkComercial = obterValorElemento('telefoneComercial');
   const modoContatoComercial = obterModoContato('modoContatoComercial');
-  const refMkComercial = obterValorElemento('refComercial');
+  const refMkComercial = obterReferenciaComFoto('refComercial', 'fotoCadastroComercial');
   const localMkComercial = obterValorElemento('localComercial');
 
   let textoIntro = "";
@@ -401,6 +524,11 @@ function gerarTexto() {
 
   function obterMorador() {
     const selecionado = document.querySelector('input[name="morador"]:checked');
+    return selecionado ? selecionado.value : '';
+  }
+
+  function obterTipoLocal(problema) {
+    const selecionado = document.querySelector(`input[name="tipoLocal_${problema}"]:checked`);
     return selecionado ? selecionado.value : '';
   }
 
@@ -442,7 +570,7 @@ function gerarTexto() {
 
   //PERSONALIZAVEL
   if (problema === 'personalization') {
-    textoIntro = regiaoMk6 + '\n' + "(" + horarioMk6 + ")" + '\n' + '\n' + "TRATADO COM: " + solicitanteMk6 + '\n' + '\n';
+    textoIntro = regiaoMk6 + (obterTipoLocal('personalization') ? ' - ' + obterTipoLocal('personalization') : '') + '\n' + "(" + horarioMk6 + ")" + '\n' + '\n' + "TRATADO COM: " + solicitanteMk6 + '\n' + '\n';
      const infos2 = [
       divplano2,
       divroteador2,
@@ -473,7 +601,7 @@ function gerarTexto() {
       macLenta ? `MAC DA ONU: ${macLenta}` : null,
       (sinalRXLenta || sinalTXLenta) ? `SINAL RX: ${sinalRXLenta} | SINAL TX: ${sinalTXLenta}` : null
     ].filter(Boolean).join('\n');
-    textoIntro = regiaoMk2 + " - INTERNET LENTA" + '\n' + "(" + horarioMk2 + ")" + '\n\n' +
+    textoIntro = regiaoMk2 + " - INTERNET LENTA" + (obterTipoLocal('internetLenta') ? " - " + obterTipoLocal('internetLenta') : "") + '\n' + "(" + horarioMk2 + ")" + '\n\n' +
       "TRATADO COM: " + solicitanteMk2 + ',' + '\n' +
       (infosLenta ? infosLenta + '\n' : '') + '\n';
     texto = "CLIENTE ESTÁ COM INTERNET LENTA. ";
@@ -509,7 +637,7 @@ function gerarTexto() {
       macCaindo ? `MAC DA ONU: ${macCaindo}` : null,
       (sinalRXCaindo || sinalTXCaindo) ? `SINAL RX: ${sinalRXCaindo} | SINAL TX: ${sinalTXCaindo}` : null
     ].filter(Boolean).join('\n');
-    textoIntro = regiaoMk3 + " - INTERNET CAINDO" + '\n' + "(" + horarioMk3 + ")" + '\n\n' +
+    textoIntro = regiaoMk3 + " - INTERNET CAINDO" + (obterTipoLocal('internetCaindo') ? " - " + obterTipoLocal('internetCaindo') : "") + '\n' + "(" + horarioMk3 + ")" + '\n\n' +
       "TRATADO COM: " + solicitanteMk3 + ',' + '\n' +
       (infosCaindo ? infosCaindo + '\n' : '') + '\n';
     texto = "CLIENTE ESTÁ COM INTERNET CAINDO. ";
@@ -552,7 +680,7 @@ function gerarTexto() {
       (sinalRXSinalAlto || sinalTXSinalAlto) ? `SINAL RX: ${sinalRXSinalAlto} | SINAL TX: ${sinalTXSinalAlto}` : null
     ].filter(Boolean).join('\n');
 
-    textoIntro = regiaoMk5 + " - SINAL ALTO" + '\n' + "(" + horarioMk5 + ")" + '\n\n' +
+    textoIntro = regiaoMk5 + " - SINAL ALTO" + (obterTipoLocal('sinalAlto') ? " - " + obterTipoLocal('sinalAlto') : "") + '\n' + "(" + horarioMk5 + ")" + '\n\n' +
       "TRATADO COM: " + solicitanteMk5 + ',' + '\n' +
       (infosSinalAlto ? infosSinalAlto + '\n' : '') + '\n';
     texto = "CLIENTE ESTÁ COM SINAL ALTO. ";
@@ -584,7 +712,7 @@ function gerarTexto() {
       (sinalRXTv || sinalTXTv) ? `SINAL RX: ${sinalRXTv} | SINAL TX: ${sinalTXTv}` : null
     ].filter(Boolean).join('\n');
 
-    textoIntro = regiaoMk4 + " - TV COM DEFEITO" + '\n' + "(" + horarioMk4 + ")" + '\n\n' +
+    textoIntro = regiaoMk4 + " - TV COM DEFEITO" + (obterTipoLocal('tvDefeito') ? " - " + obterTipoLocal('tvDefeito') : "") + '\n' + "(" + horarioMk4 + ")" + '\n\n' +
       "TRATADO COM: " + solicitanteMk4 + ',' + '\n' +
       (infosTv ? infosTv + '\n' : '') + '\n';
     texto = "CLIENTE ESTÁ COM PROBLEMAS NA TV. ";
@@ -604,7 +732,7 @@ function gerarTexto() {
     if (minimiza === 'sim') {
       texto += "TV ESTÁ MINIMIZANDO A TELA. ";
     } else if (minimiza === 'nao') {
-      texto += "TV NÃO ESTÁ MINIMIZANDO A TELA. ";
+      texto += "";
     }
 
     //CABEAMENTO
